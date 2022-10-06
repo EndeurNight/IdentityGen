@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import sqlite3
 
 def connectToDatabase():
@@ -13,18 +14,17 @@ def addInDatabase():
     if conn is not None:
         c = conn.cursor()
         c.execute(f'delete from identite')
-        metier = open('metier.txt', 'r', encoding='utf-8')
+        metier = open('metier.txt', 'r', encoding='utf-8').readlines()
         with open('names.txt', "r+",encoding="utf-8") as f:
             i = 1
             for name in f:
                 
-                if i <= len(metier.readlines()): 
-                    profession = metier.read(i-1) 
+                if i < len(metier): 
+                    profession = metier[i].split("\n")[0]
                 else:
-                    profession = ""
+                    profession = "NULL"
                 c.execute(f'INSERT INTO identite VALUES ({i}, "","{name}", "{profession}")')
                 i += 1
-        metier.close()
         conn.commit()
         conn.close()
     else:

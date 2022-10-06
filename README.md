@@ -1,12 +1,47 @@
 
-# Générateur d'identité
+![Logo](https://zupimages.net/up/22/40/tj66.png)
 
-Ce projet est un programme en python, qui génére une identité aléatoire à partir d'informations dans une base de donnée, mis en forme grâce à l'interface graphique Tkinter.
+# IdentityGen
+
+IdentityGen est un utilitaire python qui, sur la base d'une interface graphique Tkinter, permet de générer des identités aléatoires grâce à des sélections aléatoires dans des base de données.
  
 
+## Démarrage et installation
 
-## Authors
+D'abord, on clone le projet.
 
-- [Cédric LUDWIGS](https://www.github.com/asticotboy)
-- [Léo LOCATELLI-POUSSET](https://www.github.com/endeurnight)
+```bash
+  git clone https://github.com/EndeurNight/IdentityGen.git
+```
 
+Ensuite, on va jusqu'au projet.
+
+```bash
+  cd IdentityGen
+```
+
+Puis, on fait appel au grand dieu pip pour installer toutes les joulies dépendances : 
+
+```bash
+  pip install -r requirements.txt
+```
+
+Comme on aime le risque, on se rend dans le dangereux dossier ```main```
+
+```bash
+  cd main
+```
+
+Enfin, on lance [fichier python] et on prie.
+
+```bash
+  python [fichier python]
+```
+
+
+## Utilisé par les plus grands
+
+Ce projet est utilisé par de très célèbres compagnies tel que [Apple](https://www.youtube.com/watch?v=xvFZjo5PgG0), [Amazon](https://www.youtube.com/watch?v=xvFZjo5PgG0), [HP](https://www.youtube.com/watch?v=xvFZjo5PgG0) ou encore le Grand Nancy.
+###
+###
+Made with ❤️ by [AsticotBoy#4063](https://www.github.com/asticotboy) and [EnderNight#3015](https://www.github.com/asticotboy)

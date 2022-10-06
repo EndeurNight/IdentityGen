@@ -1,7 +1,7 @@
 
 # Générateur d'identité
 
-Ce projet est un programme en python, qui génére une identitée aléatoire à partir d'informations dans une base de donnée, mis en forme grâce à l'interface graphique Tkinter.
+Ce projet est un programme en python, qui génére une identité aléatoire à partir d'informations dans une base de donnée, mis en forme grâce à l'interface graphique Tkinter.
  
 
 

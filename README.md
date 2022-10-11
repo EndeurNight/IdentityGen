@@ -37,11 +37,7 @@ Enfin, on lance [fichier python] et on prie.
 ```bash
   python [fichier python]
 ```
-
-
-## Utilisé par les plus grands
-
-Ce projet est utilisé par de très célèbres compagnies tel que [Apple](https://www.youtube.com/watch?v=xvFZjo5PgG0), [Amazon](https://www.youtube.com/watch?v=xvFZjo5PgG0), [HP](https://www.youtube.com/watch?v=xvFZjo5PgG0) ou encore le Grand Nancy.
+###
 ###
 ###
 Made with ❤️ by [AsticotBoy#4063](https://www.github.com/asticotboy) and [EnderNight#3015](https://www.github.com/asticotboy)

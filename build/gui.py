@@ -138,13 +138,5 @@ button_2.place(
     width=10.833328247070312,
     height=11.818035125732422
 )
-
-canvas.create_rectangle(
-    47.0,
-    356.0,
-    980.3333129882812,
-    1289.3333129882812,
-    fill="#000000",
-    outline="")
 window.resizable(False, False)
 window.mainloop()

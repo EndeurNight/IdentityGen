@@ -131,11 +131,7 @@ class main(BaseDeDonnees, Generator):
         490.0,
         73.0,
         image=self.image_image_2)
-
-
-
-
-    
+  
 
 
 

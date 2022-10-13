@@ -9,6 +9,9 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
+from pyautogui import size
+from PIL import Image, ImageTk
+
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -105,7 +108,7 @@ button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: changeImage(None),
     relief="flat"
 )
 button_1.place(
@@ -114,5 +117,23 @@ button_1.place(
     width=102.0,
     height=23.0
 )
+
+image_image_2 = PhotoImage(
+    file=relative_to_assets("image_2.png"))
+image_2 = canvas.create_image(
+    490.0,
+    73.0,
+    image=image_image_2
+)
+def changeImage(e):
+    global image_image_2, image_2
+    image = Image.open(relative_to_assets("il.png"))
+    image.resize(320,32)
+    image_image_2 = PhotoImage(image)
+    image_2 = canvas.create_image(
+    490.0,
+    73.0,
+    image=image_image_2)
+
 window.resizable(False, False)
 window.mainloop()

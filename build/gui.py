@@ -39,7 +39,7 @@ entry_image_1 = PhotoImage(
     file=relative_to_assets("entry_1.png"))
 entry_bg_1 = canvas.create_image(
     151.5,
-    99.0,
+    121.0,
     image=entry_image_1
 )
 entry_1 = Entry(
@@ -48,9 +48,28 @@ entry_1 = Entry(
     highlightthickness=0
 )
 entry_1.place(
-    x=78.0,
+    x=83.0,
+    y=111.0,
+    width=137.0,
+    height=18.0
+)
+
+entry_image_2 = PhotoImage(
+    file=relative_to_assets("entry_2.png"))
+entry_bg_2 = canvas.create_image(
+    151.5,
+    99.0,
+    image=entry_image_2
+)
+entry_2 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    highlightthickness=0
+)
+entry_2.place(
+    x=83.0,
     y=89.0,
-    width=147.0,
+    width=137.0,
     height=18.0
 )
 
@@ -78,6 +97,22 @@ image_1 = canvas.create_image(
     152.0,
     31.0,
     image=image_image_1
+)
+
+button_image_1 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
+button_1 = Button(
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_1 clicked"),
+    relief="flat"
+)
+button_1.place(
+    x=440.0,
+    y=290.0,
+    width=102.0,
+    height=23.0
 )
 window.resizable(False, False)
 window.mainloop()

@@ -39,6 +39,6 @@ class BaseDeDonnees:
         job = self.getJobs()
         return job[randint(0, len(job))][0].split("\n")[0]
 
-print(BaseDeDonnees('data/database.db').getRandomFirstName())
+
 
 

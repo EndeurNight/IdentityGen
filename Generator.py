@@ -9,6 +9,8 @@ class Generator :
 
     def __init__(self) :
         pass
+
+    
     def num_phone(self) :
         id_list = ["06", "07"]
         id_probas = [.70, .30]

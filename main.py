@@ -1,4 +1,6 @@
 import tkinter
+
+from matplotlib.pyplot import text
 from BaseDeDonnees import BaseDeDonnees
 from Generator import Generator
 from pathlib import Path
@@ -24,6 +26,12 @@ class main(BaseDeDonnees, Generator):
         self.root.configure(bg = "#203349")
 
 
+        self.firstname = tkinter.StringVar()
+        self.job = tkinter.StringVar()
+
+        self.database =BaseDeDonnees('data/database.db')
+
+
         self.canvas = tkinter.Canvas(
             self.root,
             bg = "#203349",
@@ -45,7 +53,8 @@ class main(BaseDeDonnees, Generator):
         self.entry_1 = tkinter.Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.job
         )
         self.entry_1.place(
             x=83.0,
@@ -64,7 +73,8 @@ class main(BaseDeDonnees, Generator):
         self.entry_2 = tkinter.Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.firstname
         )
         self.entry_2.place(
             x=83.0,
@@ -105,7 +115,7 @@ class main(BaseDeDonnees, Generator):
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.changeImage(None),
+            command=lambda: self.reGen(None),
             relief="flat"
         )
         self.button_1.place(
@@ -124,13 +134,21 @@ class main(BaseDeDonnees, Generator):
         )
         self.root.mainloop()
 
-    def changeImage(self, e):
+    def changeImage(self):
         self.getImage()
         self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
         self.image_2 = self.canvas.create_image(
         490.0,
         73.0,
         image=self.image_image_2)
+        
+
+    def reGen(self,e):
+        self.changeImage()
+        self.firstname.set(self.database.getRandomFirstName().split(";")[0])
+        self.job.set(self.database.getRandomJob())
+
+    
   
 
 

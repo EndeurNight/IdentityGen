@@ -15,6 +15,8 @@ class Generator :
         year = date.strftime("%Y")
 
 
+
+    
     def num_phone(self) :
         id_list = ["06", "07"]
         id_probas = [.70, .30]
@@ -28,4 +30,5 @@ class Generator :
         image = image.resize((102, 102))
         image.save("./data/identityImage.png")
 
-    def security_number(sexe, annee_naissance, mois)
+    def security_number(sexe, annee_naissance, mois):
+        pass

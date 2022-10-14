@@ -9,9 +9,6 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-from pyautogui import size
-from PIL import Image, ImageTk
-
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -41,8 +38,8 @@ canvas.place(x = 0, y = 0)
 entry_image_1 = PhotoImage(
     file=relative_to_assets("entry_1.png"))
 entry_bg_1 = canvas.create_image(
-    151.5,
-    121.0,
+    157.5,
+    153.0,
     image=entry_image_1
 )
 entry_1 = Entry(
@@ -51,8 +48,8 @@ entry_1 = Entry(
     highlightthickness=0
 )
 entry_1.place(
-    x=83.0,
-    y=111.0,
+    x=89.0,
+    y=143.0,
     width=137.0,
     height=18.0
 )
@@ -60,8 +57,8 @@ entry_1.place(
 entry_image_2 = PhotoImage(
     file=relative_to_assets("entry_2.png"))
 entry_bg_2 = canvas.create_image(
-    151.5,
-    99.0,
+    157.5,
+    131.0,
     image=entry_image_2
 )
 entry_2 = Entry(
@@ -70,15 +67,15 @@ entry_2 = Entry(
     highlightthickness=0
 )
 entry_2.place(
-    x=83.0,
-    y=89.0,
+    x=89.0,
+    y=121.0,
     width=137.0,
     height=18.0
 )
 
 canvas.create_text(
-    13.0,
-    89.0,
+    19.0,
+    121.0,
     anchor="nw",
     text="Prénom :\n",
     fill="#FFFFFF",
@@ -86,8 +83,8 @@ canvas.create_text(
 )
 
 canvas.create_text(
-    13.0,
-    111.0,
+    19.0,
+    143.0,
     anchor="nw",
     text="Métier :",
     fill="#FFFFFF",
@@ -97,8 +94,8 @@ canvas.create_text(
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    152.0,
-    31.0,
+    207.0,
+    55.0,
     image=image_image_1
 )
 
@@ -108,30 +105,38 @@ button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: changeImage(None),
+    command=lambda: print("button_1 clicked"),
     relief="flat"
 )
 button_1.place(
-    x=440.0,
-    y=290.0,
-    width=102.0,
-    height=23.0
+    x=446.0,
+    y=292.0,
+    width=101.0,
+    height=25.0
 )
 
 image_image_2 = PhotoImage(
     file=relative_to_assets("image_2.png"))
 image_2 = canvas.create_image(
-    490.0,
-    73.0,
+    497.0,
+    61.0,
     image=image_image_2
 )
-def changeImage(e):
-    global image_image_2, image_2
-    image_image_2 = PhotoImage(file=relative_to_assets("identityImage.png"))
-    image_2 = canvas.create_image(
-    490.0,
-    73.0,
-    image=image_image_2)
 
+button_image_2 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+button_2 = Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_2 clicked"),
+    relief="flat"
+)
+button_2.place(
+    x=534.0,
+    y=121.0,
+    width=10.833328247070312,
+    height=11.818035125732422
+)
 window.resizable(False, False)
 window.mainloop()

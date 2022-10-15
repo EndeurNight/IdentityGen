@@ -1,7 +1,6 @@
 import tkinter
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-from matplotlib.pyplot import text
 from BaseDeDonnees import BaseDeDonnees
 from Generator import Generator
 from pathlib import Path

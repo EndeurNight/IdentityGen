@@ -6,6 +6,7 @@ from Generator import Generator
 from pathlib import Path
 
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
+
 OUTPUT_PATH = Path(__file__).parent
 
 ASSETS_PATH = OUTPUT_PATH / Path("./data")

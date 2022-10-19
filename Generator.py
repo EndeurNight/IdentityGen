@@ -40,14 +40,22 @@ class Generator :
 
         return jour_naissance, mois_naissance, annee_naissance, age
 
-    def num_phone(self) :
-        id_list = ["06", "07"]
-        id_probas = [.70, .30]
+    def num_phone(self,mode) :
+        if mode == "portable" :
+            id_list = ["06", "07"]
+            id_probas = [.60, .40]
+        elif mode == "fixe" :
+            id_list = ["01", "02", "03", "04", "05", "09"]
+            id_probas = [.20, .20, .20, .10, .10, .20]
+        else :
+            print("Erreur : mode de numéro de téléphone incorrect")
+            return None
+        
         id = choices(id_list, id_probas)
-
-        num.append
+        num = str(id[0])
         for i in range (0, 8) :
-            id.append(randint(0, 9))
+            num += str(randint(1, 9))
+        return num
 
     def getImage(self):
         f = open("./data/identityImage.jfif",'wb')
@@ -64,3 +72,5 @@ class Generator :
 #on teste la classe
 gen = Generator()
 print(gen.naissance())
+print(gen.num_phone("portable"))
+print(gen.num_phone("fixe"))

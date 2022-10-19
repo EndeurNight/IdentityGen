@@ -1,0 +1,10 @@
+###
+Fichier automatiquement généré par IdentityGen.
+XX/XX/XX à XXhXX
+###
+
+Nom : XXX
+Prénom : XXX
+Date de naissance : 01/01/1970
+Ville : Nancy
+Code Postal : 54000

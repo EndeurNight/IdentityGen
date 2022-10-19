@@ -55,7 +55,12 @@ class Generator :
         num = str(id[0])
         for i in range (0, 8) :
             num += str(randint(1, 9))
-        return num
+
+        #on crée une version du numéro de téléphone avec des tirets
+        num_tirets = num[0:2] + "-" + num[2:4] + "-" + num[4:6] + "-" + num[6:8] + "-" + num[8:10]
+        #on crée une version avec l'identifiant du pays
+        num_international = "+33" + num[1:10]
+        return num, num_tirets, num_international
 
     def getImage(self):
         f = open("./data/identityImage.jfif",'wb')
@@ -203,6 +208,11 @@ class Generator :
         rh = ["+", "-"]
         g = groupe[randint(0, 3)] + rh[randint(0, 1)]
         return str(g)
+
+    def signe_astro(self) :
+        """on triche un peu trois fois rien"""
+        signes = ["Bélier", "Taureau", "Gémeaux", "Cancer", "Lion", "Vierge", "Balance", "Scorpion", "Sagittaire", "Capricorne", "Verseau", "Poissons"]
+        return signes[randint(0, 11)]
     
 #on teste la classe
 gen = Generator()
@@ -214,3 +224,4 @@ print(gen.security_number("H", int(id[2]), int(id[1])))
 print(gen.email("B","Q"))
 print(gen.carte_bancaire())
 print(gen.groupe_sanguin())
+print(gen.signe_astro())

@@ -36,7 +36,7 @@ class Generator :
         #on calcule l'âge de la personne
         age = today.year - annee_naissance - ((today.month, today.day) < (mois_naissance, jour_naissance))
 
-        print("La personne est né(e) le " + str(jour_naissance) + "/" + str(mois_naissance) + "/" + str(annee_naissance) + " et a " + str(age) + " ans.")
+        #print("La personne est né(e) le " + str(jour_naissance) + "/" + str(mois_naissance) + "/" + str(annee_naissance) + " et a " + str(age) + " ans.")
 
         return jour_naissance, mois_naissance, annee_naissance, age
 
@@ -145,10 +145,10 @@ class Generator :
         return num
     
     def email(self, prenom, nom) :
-        """Cette fonction génère un email aléatoire.        """
+        """Cette fonction génère un email aléatoire."""
         #liste des fournisseurs d'email les plus courants
-        fournisseurs = ["online.de", "alice.it", "virgilio.it", "tin.it", "tim.it", "aol.com", "aol.fr", "me.com", "mac.com", "icloud.com", "arcor.de", "bluewin.ch", "blueyonder.co.uk", "bbox.fr", "btinternet.com", "comcast.net", "email.it", "facebook.com", "free.fr", "aliceadsl.fr", "infonie.fr", "libertysurf.fr", "online.fr", "freesbee.fr", "alicepro.fr", "worldonline.fr", "freenet.de", "gmx.de", "gmx.net", "gmx.at", "caramail.com", "gmx.fr", "gmail.com", "googlemail.com", "home.nl", "laposte.net", "libero.it", "blu.it", "giallo.it", "mail.ru", "bk.ru", "hotmail.com", "live.com", "msn.com", "outlook.com", "windowslive", "dbmail.com", "hotmail.fr", "live.fr", "msn.fr", "hotmail.be", "msn.be", "live.be", "hotmail.de", "hotmail.it", "hotmail.co.uk", "hotmail.es", "live.co.uk", "live.it", "live.nl", "live.se", "live.de", "hotmail.nl", "outlook.fr", "hotmail.se", "live.dk", "live.com.pt", "telefonica.es", "movistar.es", "numericable.fr", "noos.fr", "o2.pl", "orange.fr", "wanadoo.fr", "skynet.be", "rambler.ru", "lenta.ru", "autorambler.ru", "myrambler.ru", "ro.ru", "r0.ru", "sfr.fr", "neuf.fr", "9online.fr", "9business.fr", "cegetel.net", "club-internet.fr", "cario.fr", "guideo.fr", "mageos.com", "fnac.net", "waika9.com", "sky.com", "telenet.be", "tiscali.it", "tiscali.co.uk", "t-online.de", "verizon.net", "ono.com", "voila.fr", "web.de", "wp.pl", "yahoo.com", "ymail", "rocketmail", "yahoo.fr", "yahoo.co.uk", "yahoo.es", "yahoo.de", "yahoo.it", "ymail.com", "yahoo.com.tw", "rocketmail.com", "yahoo.se", "yandex.ru", "mail.com", "talktalk.net"]
-        
+        fournisseurs_tiers = ["online.de", "alice.it", "virgilio.it", "tin.it", "tim.it", "aol.com", "aol.fr", "me.com", "mac.com", "icloud.com", "arcor.de", "bluewin.ch", "blueyonder.co.uk", "bbox.fr", "btinternet.com", "comcast.net", "email.it", "facebook.com", "free.fr", "aliceadsl.fr", "infonie.fr", "libertysurf.fr", "online.fr", "freesbee.fr", "alicepro.fr", "worldonline.fr", "freenet.de", "gmx.de", "gmx.net", "gmx.at", "caramail.com", "gmx.fr", "gmail.com", "googlemail.com", "home.nl", "laposte.net", "libero.it", "blu.it", "giallo.it", "mail.ru", "bk.ru", "hotmail.com", "live.com", "msn.com", "outlook.com", "windowslive", "dbmail.com", "hotmail.fr", "live.fr", "msn.fr", "hotmail.be", "msn.be", "live.be", "hotmail.de", "hotmail.it", "hotmail.co.uk", "hotmail.es", "live.co.uk", "live.it", "live.nl", "live.se", "live.de", "hotmail.nl", "outlook.fr", "hotmail.se", "live.dk", "live.com.pt", "telefonica.es", "movistar.es", "numericable.fr", "noos.fr", "o2.pl", "orange.fr", "wanadoo.fr", "skynet.be", "rambler.ru", "lenta.ru", "autorambler.ru", "myrambler.ru", "ro.ru", "r0.ru", "sfr.fr", "neuf.fr", "9online.fr", "9business.fr", "cegetel.net", "club-internet.fr", "cario.fr", "guideo.fr", "mageos.com", "fnac.net", "waika9.com", "sky.com", "telenet.be", "tiscali.it", "tiscali.co.uk", "t-online.de", "verizon.net", "ono.com", "voila.fr", "web.de", "wp.pl", "yahoo.com", "ymail", "rocketmail", "yahoo.fr", "yahoo.co.uk", "yahoo.es", "yahoo.de", "yahoo.it", "ymail.com", "yahoo.com.tw", "rocketmail.com", "yahoo.se", "yandex.ru", "mail.com", "talktalk.net"]
+        fournisseurs_classiques = ["gmail.com","outlook.fr","gmail.fr", "outlook.fr"]
         #on génère un mail aléatoire
         mode_aleatoire = randint(0, 1)
         #Si mode aléatoire = 0, alors on a le modèle prenom-nom
@@ -167,14 +167,50 @@ class Generator :
             mail += prenom.lower()
         
         mail += "@"
-        mail += str(choices(fournisseurs))[2:-2]
+        #on choisit un fournisseur d'email aléatoire entre les deux listes
+        probabilités = [0.6, 0.4]
+        choix = choices([0, 1], probabilités)[0]
+        if choix == 0 :
+            mail += fournisseurs_classiques[randint(0, len(fournisseurs_classiques) - 1)]
+        else :
+            mail += fournisseurs_tiers[randint(0, len(fournisseurs_tiers) - 1)]
 
         return mail
 
+    def carte_bancaire(self) :
+            """Cette fonction génère un numéro de carte bancaire aléatoire."""
+            #on génère un numéro de carte bancaire aléatoire
+            num = ""	
+            #le premier chiffre est le numéro de la banque. En france, il y a 3 grands réseaux de cartes bancaires : Visa, Mastercard et American Express
+            #on choisit un réseau aléatoirement
+            reseau = ["3", "4", "5"]
+            num += reseau[randint(0, 2)]
+            #on génère ensuite les 5 chiffres de la banque de manière aléatoire (il faudrait vérifier que le numéro de banque existe, mais c'est trop compliqué)
+            for i in range(5) :
+                num += str(randint(0, 9))
+
+            #puis on génère les 10 derniers chiffres de manière aléatoire (on obtient donc un numéro de carte bancaire aléatoire, qui ne respecte pas forcément les règles de Luhn car on ne le vérifie pas.
+            for i in range(10) :
+                num += str(randint(0, 9))
+
+            cvv = randint(100, 999)
+            date = str(randint(1, 12)) + "/" + str(randint(21, 30))
+            return num, cvv, date
+    
+    def groupe_sanguin(self) :
+        """Génère un groupe sanguin aléatoire"""
+        groupe = ["A", "B", "AB", "O"]
+        rh = ["+", "-"]
+        g = groupe[randint(0, 3)] + rh[randint(0, 1)]
+        return str(g)
+    
 #on teste la classe
 gen = Generator()
-print(gen.naissance())
+id = gen.naissance()
+print(id)
 print(gen.num_phone("portable"))
 print(gen.num_phone("fixe"))
-print(gen.security_number("H",2014,12))
-print(gen.email("Jean","Dupont"))
+print(gen.security_number("H", int(id[2]), int(id[1])))
+print(gen.email("B","Q"))
+print(gen.carte_bancaire())
+print(gen.groupe_sanguin())

@@ -63,14 +63,118 @@ class Generator :
         f.close()
         image = Image.open("./data/identityImage.jfif")
         image = image.convert("RGBA")
-        image = image.resize((102, 102))
+        image = image.resize((102, 102))    
         image.save("./data/identityImage.png")
 
-    def security_number(sexe, annee_naissance, mois):
-        pass
+    def security_number(self, sexe, annee_naissance, mois):
+        """Pour l'instant, le numéro est généré de manière pseudo-aléatoire.
+        Le modèle de génération est correct pour les 5 premiers chiffres mais est complété de manière aléatoire par Python, 
+        car IdentityGen ne gère pas dans la version actuelle le lieu de naissance.
+        La complétion automatique garde toutefois une certaine coordance ; les numéros sont possibles et ne prennent pas de valeurs inexistantes.
+        1er chiffre = sexe ("H" = Homme, "F" = Femme)
+        2 chiffres suivants = année de naissance
+        2 chiffres suivants = mois de naissance
+        2 chiffres suivants = département (GENERE)
+        3 chiffres suivants = code commune INSEE (GENERE)
+        3 chiffres suivants = numéro d'ordre de naissance
+        2 chiffres suivants = Clé de contrôle
+        Total = 1 + 2 + 2 + 2 + 3 + 3 + 2 = 15 chiffres
+        """
+
+        assert sexe in ["H", "F"], "Erreur : sexe incorrect"
+        assert annee_naissance >= 1900 and annee_naissance <= date.today().year, "Erreur : année de naissance incorrecte"
+        assert mois >= 1 and mois <= 12, "Erreur : mois de naissance incorrect" 
+
+        #on génère le numéro de sécurité sociale
+        num = ""
+
+        #1er chiffre = sexe ("H" = Homme, "F" = Femme)
+        if sexe == "H" :
+            num += "1"
+        elif sexe == "F" :
+            num += "2"
+        else :
+            print("Erreur : sexe incorrect")
+            return None
+        
+        #2 chiffres suivants = année de naissance
+        annee_de_naissance = str(annee_naissance)
+        num += str(annee_de_naissance[2])
+        num += str(annee_de_naissance[3])
+
+        #2 chiffres suivants = mois de naissance
+        if mois < 10 :
+            num += "0"
+        num += str(mois)
+
+        #2 chiffres suivants = département (GENERE)
+        #Les départements vont de 01 à 99, mais 20, 96, 97 et 98 ne sont pas utilisés
+        departement = randint(1, 99)
+        if departement == 20 or departement == 96 or departement == 97 or departement == 98 :
+            departement += 1
+        if departement < 10 :
+            num += "0"
+        num += str(departement)
+
+        #3 chiffres suivants = code commune INSEE (GENERE)
+        #Les codes communes INSEE vont de 001 à 999
+        code_commune = randint(1, 999)
+        if code_commune < 10 :
+            num += "00"
+        elif code_commune < 100 :
+            num += "0"
+        num += str(code_commune)
+
+        #3 chiffres suivants = numéro d'ordre de naissance
+        #Les numéros d'ordre de naissance vont de 001 à 999
+        num_ordre = randint(1, 999)
+        if num_ordre < 10 :
+            num += "00"
+        elif num_ordre < 100 :
+            num += "0"
+        num += str(num_ordre)
+
+
+        #2 chiffres suivants = Clé de contrôle
+        #formule de Luhn
+        cle = 97 - (int(num) % 97)
+        if cle < 10 :
+            num += "0"
+        num += str(cle)
+
+        return num
+    
+    def email(self, prenom, nom) :
+        """Cette fonction génère un email aléatoire.        """
+        #liste des fournisseurs d'email les plus courants
+        fournisseurs = ["online.de", "alice.it", "virgilio.it", "tin.it", "tim.it", "aol.com", "aol.fr", "me.com", "mac.com", "icloud.com", "arcor.de", "bluewin.ch", "blueyonder.co.uk", "bbox.fr", "btinternet.com", "comcast.net", "email.it", "facebook.com", "free.fr", "aliceadsl.fr", "infonie.fr", "libertysurf.fr", "online.fr", "freesbee.fr", "alicepro.fr", "worldonline.fr", "freenet.de", "gmx.de", "gmx.net", "gmx.at", "caramail.com", "gmx.fr", "gmail.com", "googlemail.com", "home.nl", "laposte.net", "libero.it", "blu.it", "giallo.it", "mail.ru", "bk.ru", "hotmail.com", "live.com", "msn.com", "outlook.com", "windowslive", "dbmail.com", "hotmail.fr", "live.fr", "msn.fr", "hotmail.be", "msn.be", "live.be", "hotmail.de", "hotmail.it", "hotmail.co.uk", "hotmail.es", "live.co.uk", "live.it", "live.nl", "live.se", "live.de", "hotmail.nl", "outlook.fr", "hotmail.se", "live.dk", "live.com.pt", "telefonica.es", "movistar.es", "numericable.fr", "noos.fr", "o2.pl", "orange.fr", "wanadoo.fr", "skynet.be", "rambler.ru", "lenta.ru", "autorambler.ru", "myrambler.ru", "ro.ru", "r0.ru", "sfr.fr", "neuf.fr", "9online.fr", "9business.fr", "cegetel.net", "club-internet.fr", "cario.fr", "guideo.fr", "mageos.com", "fnac.net", "waika9.com", "sky.com", "telenet.be", "tiscali.it", "tiscali.co.uk", "t-online.de", "verizon.net", "ono.com", "voila.fr", "web.de", "wp.pl", "yahoo.com", "ymail", "rocketmail", "yahoo.fr", "yahoo.co.uk", "yahoo.es", "yahoo.de", "yahoo.it", "ymail.com", "yahoo.com.tw", "rocketmail.com", "yahoo.se", "yandex.ru", "mail.com", "talktalk.net"]
+        
+        #on génère un mail aléatoire
+        mode_aleatoire = randint(0, 1)
+        #Si mode aléatoire = 0, alors on a le modèle prenom-nom
+        #Sinon, nom-prenom (ça permet de donner un peu de variété)
+        if mode_aleatoire == 0 :
+            mail = ""
+            mail += prenom.lower()
+            separateur = ["", ".", "_", "-", ""]
+            mail += separateur[randint(0, 4)]
+            mail += nom.lower()
+        else :
+            mail = ""
+            mail += nom.lower()
+            separateur = ["", ".", "_", "-", ""]
+            mail += separateur[randint(0, 4)]
+            mail += prenom.lower()
+        
+        mail += "@"
+        mail += str(choices(fournisseurs))[2:-2]
+
+        return mail
 
 #on teste la classe
 gen = Generator()
 print(gen.naissance())
 print(gen.num_phone("portable"))
 print(gen.num_phone("fixe"))
+print(gen.security_number("H",2014,12))
+print(gen.email("Jean","Dupont"))

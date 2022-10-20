@@ -57,7 +57,7 @@ class Generator :
             num += str(randint(1, 9))
 
         #on crée une version du numéro de téléphone avec des tirets
-        num_tirets = num[0:2] + "-" + num[2:4] + "-" + num[4:6] + "-" + num[6:8] + "-" + num[8:10]
+        num_tirets = num[0:2] + " " + num[2:4] + " " + num[4:6] + " " + num[6:8] + " " + num[8:10]
         #on crée une version avec l'identifiant du pays
         num_international = "+33" + num[1:10]
         return num, num_tirets, num_international
@@ -202,7 +202,14 @@ class Generator :
 
             cvv = randint(100, 999)
             date = str(randint(1, 12)) + "/" + str(randint(21, 30))
-            return num, cvv, date
+
+            num_avec_espaces = ""
+            for i in range(len(num)) :
+                if i % 4 == 0 and i != 0 :
+                    num_avec_espaces += " "
+                num_avec_espaces += num[i]
+
+            return num, cvv, date, num_avec_espaces
     
     def groupe_sanguin(self) :
         """Génère un groupe sanguin aléatoire"""

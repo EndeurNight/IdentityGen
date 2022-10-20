@@ -3,6 +3,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 from scripts.BaseDeDonnees import BaseDeDonnees
 from scripts.Generator import Generator
+from scripts.Convert import Convert
 from pathlib import Path
 
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
@@ -145,7 +146,7 @@ class main(BaseDeDonnees, Generator):
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.changeImage(),
+            command=lambda: self.convertToPdf(),#self.changeImage(),
             relief="flat"
         )
         self.button_2.place(
@@ -169,6 +170,13 @@ class main(BaseDeDonnees, Generator):
         self.changeImage()
         self.firstname.set(self.database.getRandomFirstName().split(";")[0])
         self.job.set(self.database.getRandomJob())
+
+
+    def convertToPdf(self):
+        infos = {"prenom":self.firstname.get(), "job":self.job.get()}
+
+
+        Convert("Identity_Gen_Card.pdf", infos).convert()
 
     
   

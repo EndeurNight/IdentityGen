@@ -65,13 +65,13 @@ class Generator :
         return num, num_tirets, num_international, num_international_espaces
 
     def getImage(self):
-        f = open("./data/identityImage.jfif",'wb')
+        f = open("./assets/identityImage.jfif",'wb')
         f.write(requests.get('https://thispersondoesnotexist.com/image', headers={'User-Agent': 'My User Agent 1.0'}).content)
         f.close()
-        image = Image.open("./data/identityImage.jfif")
+        image = Image.open("./assets/identityImage.jfif")
         image = image.convert("RGBA")
         image = image.resize((150, 150))    
-        image.save("./data/identityImage.png")
+        image.save("./assets/identityImage.png")
 
     def security_number(self, sexe, annee_naissance, mois):
         """Pour l'instant, le numéro est généré de manière pseudo-aléatoire.

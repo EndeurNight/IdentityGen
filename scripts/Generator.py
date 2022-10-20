@@ -225,14 +225,14 @@ class Generator :
         signes = ["Bélier", "Taureau", "Gémeaux", "Cancer", "Lion", "Vierge", "Balance", "Scorpion", "Sagittaire", "Capricorne", "Verseau", "Poissons"]
         return signes[randint(0, 11)]
     
-#on teste la classe
-gen = Generator()
-id = gen.naissance()
-print(id)
-print(gen.num_phone("portable"))
-print(gen.num_phone("fixe"))
-print(gen.security_number("H", int(id[2]), int(id[1])))
-print(gen.email("B","Q"))
-print(gen.carte_bancaire())
-print(gen.groupe_sanguin())
-print(gen.signe_astro())
+# #on teste la classe
+# gen = Generator()
+# id = gen.naissance()
+# print(id)
+# print(gen.num_phone("portable"))
+# print(gen.num_phone("fixe"))
+# print(gen.security_number("H", int(id[2]), int(id[1])))
+# print(gen.email("B","Q"))
+# print(gen.carte_bancaire())
+# print(gen.groupe_sanguin())
+# print(gen.signe_astro())

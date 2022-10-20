@@ -68,7 +68,7 @@ class Generator :
         f.close()
         image = Image.open("./data/identityImage.jfif")
         image = image.convert("RGBA")
-        image = image.resize((102, 102))    
+        image = image.resize((150, 150))    
         image.save("./data/identityImage.png")
 
     def security_number(self, sexe, annee_naissance, mois):
@@ -215,13 +215,13 @@ class Generator :
         return signes[randint(0, 11)]
     
 #on teste la classe
-gen = Generator()
-id = gen.naissance()
-print(id)
-print(gen.num_phone("portable"))
-print(gen.num_phone("fixe"))
-print(gen.security_number("H", int(id[2]), int(id[1])))
-print(gen.email("B","Q"))
-print(gen.carte_bancaire())
-print(gen.groupe_sanguin())
-print(gen.signe_astro())
+# gen = Generator()
+# id = gen.naissance()
+# print(id)
+# print(gen.num_phone("portable"))
+# print(gen.num_phone("fixe"))
+# print(gen.security_number("H", int(id[2]), int(id[1])))
+# print(gen.email("B","Q"))
+# print(gen.carte_bancaire())
+# print(gen.groupe_sanguin())
+# print(gen.signe_astro())

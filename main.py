@@ -1,11 +1,13 @@
 import tkinter
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-from BaseDeDonnees import BaseDeDonnees
-from Generator import Generator
+from scripts.BaseDeDonnees import BaseDeDonnees
+from scripts.Generator import Generator
 from pathlib import Path
 
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
+
+"""figd_tfu8hIrJnOs2JiudjbuqX9k9Bp-VrHANXEhb7uLM""" #second
 
 OUTPUT_PATH = Path(__file__).parent
 

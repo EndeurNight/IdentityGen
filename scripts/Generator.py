@@ -147,7 +147,9 @@ class Generator :
             num += "0"
         num += str(cle)
 
-        return num
+        num_avec_espaces = num[0:1] + " " + num[1:3] + " " + num[3:5] + " " + num[5:7] + " " + num[7:10] + " " + num[10:13] + " " + num[13:15]
+
+        return num, num_avec_espaces
     
     def email(self, prenom, nom) :
         """Cette fonction génère un email aléatoire."""
@@ -215,13 +217,13 @@ class Generator :
         return signes[randint(0, 11)]
     
 #on teste la classe
-# gen = Generator()
-# id = gen.naissance()
-# print(id)
-# print(gen.num_phone("portable"))
-# print(gen.num_phone("fixe"))
-# print(gen.security_number("H", int(id[2]), int(id[1])))
-# print(gen.email("B","Q"))
-# print(gen.carte_bancaire())
-# print(gen.groupe_sanguin())
-# print(gen.signe_astro())
+gen = Generator()
+id = gen.naissance()
+print(id)
+print(gen.num_phone("portable"))
+print(gen.num_phone("fixe"))
+print(gen.security_number("H", int(id[2]), int(id[1])))
+print(gen.email("B","Q"))
+print(gen.carte_bancaire())
+print(gen.groupe_sanguin())
+print(gen.signe_astro())

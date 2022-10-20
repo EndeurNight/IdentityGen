@@ -60,7 +60,9 @@ class Generator :
         num_tirets = num[0:2] + " " + num[2:4] + " " + num[4:6] + " " + num[6:8] + " " + num[8:10]
         #on crée une version avec l'identifiant du pays
         num_international = "+33" + num[1:10]
-        return num, num_tirets, num_international
+        #on crée une version avec l'identifiant du pays et des espaces
+        num_international_espaces = "+33 " + num[1:2] + " " + num[2:4] + " " + num[4:6] + " " + num[6:8] + " " + num[8:10]
+        return num, num_tirets, num_international, num_international_espaces
 
     def getImage(self):
         f = open("./data/identityImage.jfif",'wb')

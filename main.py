@@ -22,7 +22,8 @@ class main(BaseDeDonnees, Generator):
     
     def __init__(self):
         self.root = tkinter.Tk()
-        self.root.title("Main")
+        self.root.title("IdentiyGen (stable) public build 22621.674")
+        self.root.iconbitmap("logo_ico.ico")
         self.root.resizable(False, False)
         self.root.geometry("800x432")
         self.root.configure(bg = "#1B2F47")    

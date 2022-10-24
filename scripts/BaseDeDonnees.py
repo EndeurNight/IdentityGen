@@ -38,6 +38,11 @@ class BaseDeDonnees:
     def getRandomJob(self):
         job = self.getJobs()
         return job[randint(0, len(job))][0].split("\n")[0]
+    
+test = BaseDeDonnees('data/database.db')
+print(test.getRandomFirstName())
+print(test.getRandomJob())
+
 
 
 

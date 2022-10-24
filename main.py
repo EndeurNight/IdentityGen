@@ -530,13 +530,15 @@ class main(BaseDeDonnees, Generator):
             image=image_image_6
         )
 
+        ######################## Zone des boutons ########################
+
         button_image_1 = PhotoImage(
             file=relative_to_assets("button_1.png"))
         button_1 = Button(
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: self.download_image(),
             relief="flat"
         )
         button_1.place(
@@ -552,7 +554,7 @@ class main(BaseDeDonnees, Generator):
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: self.download_data(),
             relief="flat"
         )
         button_2.place(
@@ -584,7 +586,7 @@ class main(BaseDeDonnees, Generator):
             image=button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: self.refresh_image(),
             relief="flat"
         )
         button_4.place(
@@ -599,15 +601,30 @@ class main(BaseDeDonnees, Generator):
         self.getImage()
         self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
         self.image_2 = self.canvas.create_image(
-        490.0,
-        73.0,
+        717,
+        81,
         image=self.image_image_2)
+
+    def refresh_image(self):
+        print("Rafraichissement de l'image...")
+        try :
+            self.changeImage()
+        except :
+            print("Erreur lors du rafraichissement de l'image")
+        print("Image rafraichie !")
         
 
     def reGen(self):
-        self.changeImage()
-        self.firstname.set(self.database.getRandomFirstName().split(";")[0])
-        self.job.set(self.database.getRandomJob())
+        print("Rafraichissement des données...")
+        try :
+            self.changeImage()
+            self.firstname.set(self.database.getRandomFirstName().split(";")[0])
+            self.job.set(self.database.getRandomJob())
+        except :
+            print("Erreur lors du rafraichissement des données")
+            self.firstname.set("Erreur")
+            self.job.set("Erreur")
+        print("Données rafraichies !")
 
 
     def convertToPdf(self):
@@ -615,6 +632,12 @@ class main(BaseDeDonnees, Generator):
 
 
         Convert("Identity_Gen_Card.pdf", infos).convert()
+    
+    def download_image(self) :
+        print("Téléchargement de l'image...")
+    
+    def download_data(self) :
+        print("Téléchargement des données...")
 
     
   

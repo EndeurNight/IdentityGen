@@ -86,12 +86,12 @@ class main(BaseDeDonnees, Generator):
             208.5,
             image=entry_image_2
         )
-        entry_2 = Entry(
+        self.codepostal_entry = Entry(
             bd=0,
             bg="#FFFFFF",
             highlightthickness=0
         )
-        entry_2.place(
+        self.codepostal_entry.place(
             x=395.0,
             y=200.0,
             width=47.0,

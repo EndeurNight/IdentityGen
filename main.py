@@ -1,11 +1,10 @@
 import tkinter
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from pathlib import Path
+from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk
 
 from scripts.BaseDeDonnees import BaseDeDonnees
-from scripts.Generator import Generator
 from scripts.Convert import Convert
-from pathlib import Path
-
+from scripts.Generator import Generator
 
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
 
@@ -32,19 +31,26 @@ class main(BaseDeDonnees, Generator):
         self.root.iconbitmap("logo_ico.ico")
         #Taille de la fenêtre (non redimensionnable)
         self.root.resizable(False, False)
-        self.root.geometry("800x432")
+        #self.root.geometry("800x432")
+        self.root.geometry("800x445")
         #Couleur de fond
         self.root.configure(bg = "#1B2F47")
 
-        # #MENU
-        # self.menu = tkinter.Menu(self.root)
-        # self.root.config(menu=self.menu)
-        # self.about = tkinter.Menu(self.menu, tearoff=0)
-        # self.about.add_command(label="Informations", command=self.about)
-        # self.menu.add_cascade(label="À propos", menu=self.about)
-        # self.app = tkinter.Menu(self.menu, tearoff=0)
-        # self.app.add_command(label="Redémarrer")
-        # self.app.add_command(label="Quitter")
+        #MENU
+        self.menu = tkinter.Menu(self.root)
+        self.root.config(menu=self.menu)
+
+        self.menuinfo = tkinter.Menu(self.menu, tearoff=0)
+        self.menuinfo.add_command(label="Générer une nouvelle identité", command=self.reGen)
+        self.menuinfo.add_command(label="Rafraichir l'image", command=self.refresh_image)
+        #on ajoute un séparateur
+        self.menuinfo.add_separator()
+        self.menuinfo.add_command(label="Quitter", command=self.root.quit)
+        self.menu.add_cascade(label="Application", menu=self.menuinfo)
+
+        self.menu.add_cascade(label="A propos", command=self.about)
+
+
         
 
 
@@ -684,7 +690,16 @@ class main(BaseDeDonnees, Generator):
             print("Métier rafraichi !")
         except :
             print("Erreur lors du rafraichissement du métier")
-        
+
+    def about(self):
+        #on affiche la fenêtre à propos
+        self.aboutWindow = tkinter.Tk()
+        self.aboutWindow.title("A propos")
+        self.aboutWindow.geometry("400x200")
+        self.aboutWindow.resizable(False, False)
+        self.aboutWindow.iconbitmap(relative_to_assets("icon.ico"))
+        self.aboutWindow.config(bg="#000000")
+
     def convertToPdf(self):
         infos = {"prenom":self.firstname.get(), "job":self.job.get()}
         Convert("Identity_Gen_Card.pdf", infos).convert()

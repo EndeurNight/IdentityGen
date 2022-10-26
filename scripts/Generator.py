@@ -177,8 +177,8 @@ class Generator :
         
         mail += "@"
         #on choisit un fournisseur d'email aléatoire entre les deux listes
-        probabilités = [0.6, 0.4]
-        choix = choices([0, 1], probabilités)[0]
+        probabilites = [0.6, 0.4]
+        choix = choices([0, 1], probabilites)[0]
         if choix == 0 :
             mail += fournisseurs_classiques[randint(0, len(fournisseurs_classiques) - 1)]
         else :

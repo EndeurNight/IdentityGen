@@ -6,9 +6,12 @@ from scripts.Generator import Generator
 from scripts.Convert import Convert
 from pathlib import Path
 
+
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
 
 """figd_tfu8hIrJnOs2JiudjbuqX9k9Bp-VrHANXEhb7uLM""" #second
+
+#Pas compris xD
 
 OUTPUT_PATH = Path(__file__).parent
 
@@ -21,22 +24,55 @@ def relative_to_assets(path: str) -> Path:
 class main(BaseDeDonnees, Generator):
     
     def __init__(self):
+        #On initialise la fenêtre et tous ses composants
         self.root = tkinter.Tk()
-        self.root.title("IdentiyGen (stable) public build 22621.674")
+        #Titre de la fenêtre
+        self.root.title("IdentiyGen (stable) public build 2.16.4")
+        #Logo de la fenêtre
         self.root.iconbitmap("logo_ico.ico")
+        #Taille de la fenêtre (non redimensionnable)
         self.root.resizable(False, False)
         self.root.geometry("800x432")
+        #Couleur de fond
         self.root.configure(bg = "#1B2F47")    
 
-
-
+        #Dans l'ordre des composants de la fenêtre ig (on part du design, de haut en bas et de gauche à droite)):
+        
+        #Prénom
         self.firstname = tkinter.StringVar()
+        #Nom
+        self.name = tkinter.StringVar()
+        #Métier
         self.job = tkinter.StringVar()
-        self.age = tkinter.IntVar()
-        self.ville = tkinter.StringVar()
-        self.codePostal = tkinter.StringVar()
+        #Sexe
+        self.sex = tkinter.StringVar()
+        #Groupe sanguin
+        self.blood = tkinter.StringVar()
+        #Ville
+        self.city = tkinter.StringVar()
+        #Code postal
+        self.postal_code = tkinter.StringVar()
+        #Age
+        self.age = tkinter.StringVar()
+        #Date de naissance
+        self.birth_date = tkinter.StringVar()
+        #Email
+        self.email = tkinter.StringVar()
+        #Numéro de sécurité sociale
+        self.social_security_number = tkinter.StringVar()
+        #Numéro de téléphone fixe
+        self.phone_number = tkinter.StringVar()
+        #Numéro de téléphone portable
+        self.mobile_phone_number = tkinter.StringVar()
+        #Numéro de carte bancaire
+        self.bank_card_number = tkinter.StringVar()
+        #Date d'expiration de la carte bancaire
+        self.bank_card_expiration_date = tkinter.StringVar()
+        #Code de sécurité de la carte bancaire
+        self.bank_card_security_code = tkinter.StringVar()
 
-        self.database =BaseDeDonnees('data/database.db')
+        #On initialise la base de données
+        self.database = BaseDeDonnees('data/database.db')
 
 
         self.canvas = Canvas(
@@ -50,6 +86,7 @@ class main(BaseDeDonnees, Generator):
         )
 
         self.canvas.place(x = 0, y = 0)
+
         entry_image_1 = PhotoImage(
             file=relative_to_assets("entry_1.png"))
         entry_bg_1 = self.canvas.create_image(
@@ -153,7 +190,6 @@ class main(BaseDeDonnees, Generator):
             fill="#FFFFFF",
             font=("Inter", 12 * -1)
         )
-
         entry_image_5 = PhotoImage(
             file=relative_to_assets("entry_5.png"))
         entry_bg_5 = self.canvas.create_image(
@@ -182,6 +218,7 @@ class main(BaseDeDonnees, Generator):
             font=("Inter", 12 * -1)
         )
 
+
         entry_image_6 = PhotoImage(
             file=relative_to_assets("entry_6.png"))
         entry_bg_6 = self.canvas.create_image(
@@ -208,7 +245,6 @@ class main(BaseDeDonnees, Generator):
             299.0,
             image=image_image_1
         )
-
         entry_image_7 = PhotoImage(
             file=relative_to_assets("entry_7.png"))
         entry_bg_7 = self.canvas.create_image(
@@ -235,6 +271,7 @@ class main(BaseDeDonnees, Generator):
             335.0,
             image=image_image_2
         )
+
 
         entry_image_8 = PhotoImage(
             file=relative_to_assets("entry_8.png"))
@@ -597,6 +634,8 @@ class main(BaseDeDonnees, Generator):
         )
         self.root.mainloop()
 
+    ######################## Zone des fonctions ########################
+
     def changeImage(self):
         self.getImage()
         self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
@@ -611,33 +650,38 @@ class main(BaseDeDonnees, Generator):
             self.changeImage()
         except :
             print("Erreur lors du rafraichissement de l'image")
-        print("Image rafraichie !")
-        
+        print("Image rafraichie !") 
 
     def reGen(self):
-        print("Rafraichissement des données...")
+        print("[!] Rafraichissement des données...")
+        print("Rafraichissement de l'image...")
         try :
             self.changeImage()
-            self.firstname.set(self.database.getRandomFirstName().split(";")[0])
-            self.job.set(self.database.getRandomJob())
+            print("Image rafraichie !")
         except :
-            print("Erreur lors du rafraichissement des données")
-            self.firstname.set("Erreur")
-            self.job.set("Erreur")
-        print("Données rafraichies !")
-
-
+            print("Erreur lors du rafraichissement de l'image")
+        print("Rafraichissement du prénom...")
+        try :
+            print("Prénom : " + str(self.database.getRandomFirstName().split(";")[0]))
+            print("Prénom rafraichi !")
+        except :
+            print("Erreur lors du rafraichissement du prénom")
+        print("Rafraichissement du métier...")
+        try :
+            print("Métier : " + str(self.database.getRandomJob().split(";")[0]))
+            print("Métier rafraichi !")
+        except :
+            print("Erreur lors du rafraichissement du métier")
+        
     def convertToPdf(self):
         infos = {"prenom":self.firstname.get(), "job":self.job.get()}
-
-
         Convert("Identity_Gen_Card.pdf", infos).convert()
     
     def download_image(self) :
-        print("Téléchargement de l'image...")
-    
+        print("Téléchargement de l'image... [EN COURS]")
+        
     def download_data(self) :
-        print("Téléchargement des données...")
+        print("Téléchargement des données... [EN COURS]")
 
     
   

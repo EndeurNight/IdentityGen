@@ -34,7 +34,19 @@ class main(BaseDeDonnees, Generator):
         self.root.resizable(False, False)
         self.root.geometry("800x432")
         #Couleur de fond
-        self.root.configure(bg = "#1B2F47")    
+        self.root.configure(bg = "#1B2F47")
+
+        # #MENU
+        # self.menu = tkinter.Menu(self.root)
+        # self.root.config(menu=self.menu)
+        # self.about = tkinter.Menu(self.menu, tearoff=0)
+        # self.about.add_command(label="Informations", command=self.about)
+        # self.menu.add_cascade(label="À propos", menu=self.about)
+        # self.app = tkinter.Menu(self.menu, tearoff=0)
+        # self.app.add_command(label="Redémarrer")
+        # self.app.add_command(label="Quitter")
+        
+
 
         #Dans l'ordre des composants de la fenêtre ig (on part du design, de haut en bas et de gauche à droite)):
         

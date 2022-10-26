@@ -20,7 +20,7 @@ class BaseDeDonnees:
         #On récupère tous les prénoms de la base de données
         if self.cursor == None:
             self.connectToDatabase()
-            self.cursor.execute("SELECT prenom FROM identite WHERE prenom != 'NULL' AND prenom NOT LIKE '%=%'")
+        self.cursor.execute("SELECT prenom FROM identite WHERE prenom != 'NULL' AND prenom NOT LIKE '%=%'")
         return self.cursor.fetchall()
 
     def getRandomFirstName(self):
@@ -40,6 +40,7 @@ class BaseDeDonnees:
         return job[randint(0, len(job))][0].split("\n")[0]
     
 # test = BaseDeDonnees('data/database.db')
+# print(test.getRandomFirstName())
 # print(test.getRandomFirstName())
 
 

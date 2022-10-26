@@ -682,7 +682,7 @@ class main(BaseDeDonnees, Generator):
         try :
             print("Prénom : " + str(self.database.getRandomFirstName().split(";")[0]))
             print("Prénom rafraichi !")
-        except :
+        except:
             print("Erreur lors du rafraichissement du prénom")
         print("Rafraichissement du métier...")
         try :

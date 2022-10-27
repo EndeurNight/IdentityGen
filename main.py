@@ -1,10 +1,16 @@
+from distutils import extension
+from distutils.log import error
 import tkinter
 from pathlib import Path
 from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk
-
+from tkinter.filedialog import asksaveasfile
 from scripts.BaseDeDonnees import BaseDeDonnees
 from scripts.Convert import Convert
 from scripts.Generator import Generator
+from About import About
+from rich.console import Console
+from PIL import Image
+
 
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
 
@@ -19,10 +25,13 @@ ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+#on initialise la console (pour les print en couleurs)
+console = Console()
 
 class main(BaseDeDonnees, Generator):
     
     def __init__(self):
+
         #On initialise la fenêtre et tous ses composants
         self.root = tkinter.Tk()
         #Titre de la fenêtre
@@ -36,9 +45,14 @@ class main(BaseDeDonnees, Generator):
         #Couleur de fond
         self.root.configure(bg = "#1B2F47")
 
-        #MENU
+        #MENU 
         self.menu = tkinter.Menu(self.root)
         self.root.config(menu=self.menu)
+
+        #about
+        self.about = About()
+        # self.about.test()
+        # self.about.show_about_window()
 
         self.menuinfo = tkinter.Menu(self.menu, tearoff=0)
         self.menuinfo.add_command(label="Générer une nouvelle identité", command=self.reGen)
@@ -48,7 +62,7 @@ class main(BaseDeDonnees, Generator):
         self.menuinfo.add_command(label="Quitter", command=self.root.quit)
         self.menu.add_cascade(label="Application", menu=self.menuinfo)
 
-        self.menu.add_cascade(label="A propos", command=self.about)
+        self.menu.add_cascade(label="À propos", command=self.about.test)
 
 
         
@@ -91,6 +105,7 @@ class main(BaseDeDonnees, Generator):
 
         #On initialise la base de données
         self.database = BaseDeDonnees('data/database.db')
+        
 
 
         self.canvas = Canvas(
@@ -663,52 +678,84 @@ class main(BaseDeDonnees, Generator):
         image=self.image_image_2)
 
     def refresh_image(self):
-        print("Rafraichissement de l'image...")
+        console.print("Rafraichissement de l'image...", style="blue")
         try :
             self.changeImage()
-        except :
-            print("Erreur lors du rafraichissement de l'image")
-        print("Image rafraichie !") 
+            console.print("Image rafraichie !", style="green")
+        except Exception as e:
+            console.print("Erreur lors du rafraichissement de l'image", style="red")
+            console.print(e, style="red")
+        return
+        
 
     def reGen(self):
-        print("[!] Rafraichissement des données...")
-        print("Rafraichissement de l'image...")
+        console.print("\nGénération des données...", style="bold purple")
+
+        #On génère l'image
+        console.print("Génération de l'image...", style="blue")
         try :
             self.changeImage()
-            print("Image rafraichie !")
-        except :
-            print("Erreur lors du rafraichissement de l'image")
-        print("Rafraichissement du prénom...")
+            console.print("Image générée !", style="green")
+        except Exception as e:
+            console.print("Erreur lors du rafraichissement de l'image", style="red")
+            console.print(e, style="red")
+
+        #On génère le prénom
+        console.print("Génération du prénom...", style="blue")
         try :
-            print("Prénom : " + str(self.database.getRandomFirstName().split(";")[0]))
-            print("Prénom rafraichi !")
-        except:
-            print("Erreur lors du rafraichissement du prénom")
-        print("Rafraichissement du métier...")
+            console.print("Prénom : [u]" + str(self.database.getRandomFirstName().split(";")[0]) + "[/u]", style="green") 
+            console.print("Prénom généré !", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du prénom", style="red")
+            console.print(e, style="red")
+        
+        #On génère le métier
+        console.print("Génération du métier...", style="blue")
         try :
-            print("Métier : " + str(self.database.getRandomJob().split(";")[0]))
-            print("Métier rafraichi !")
-        except :
-            print("Erreur lors du rafraichissement du métier")
+            console.print("Métier : [u]" + str(self.database.getRandomJob().split(";")[0]) + "[/u]", style="green")
+            console.print("Métier généré !", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du métier", style="red")
+            console.print(e, style="red")
+
+        console.print("Génération terminée.", style="bold green")
 
     def about(self):
         #on affiche la fenêtre à propos
-        self.aboutWindow = tkinter.Tk()
-        self.aboutWindow.title("A propos")
-        self.aboutWindow.geometry("400x200")
-        self.aboutWindow.resizable(False, False)
-        self.aboutWindow.iconbitmap(relative_to_assets("icon.ico"))
-        self.aboutWindow.config(bg="#000000")
+        console.print("Ouverture de la fenêtre à propos...", style="blue")
+        self.about()
+
 
     def convertToPdf(self):
         infos = {"prenom":self.firstname.get(), "job":self.job.get()}
         Convert("Identity_Gen_Card.pdf", infos).convert()
     
     def download_image(self) :
-        print("Téléchargement de l'image... [EN COURS]")
+
+        console.print("Préparation de l'image...", style="blue")
+        console.print("Recadrage et conversion de l'image...", style="blue")
+        try :
+            image = Image.open("./assets/identityImage.jfif")
+            image_export = image.convert("RGBA")
+            image_export.save("./assets/identityImageExport.png")
+            console.print("Image convertie avec succès...", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la conversion de l'image", style="red")
+            console.print(e, style="red")
+            return
+        console.print("Téléchargement de l'image... \n {A CONTINUER}", style="yellow")
+
+        # #on demande à l'utilisateur où il veut enregistrer l'image sur son ordinateur
+        # extensions = [('Image PNG ', '*.png')]
+        # #On demande à l'utilisateur où il veut enregistrer l'image identityImageExport.png
+        # downloaded_image = asksaveasfile(filetypes = extension, defaultextension = extension)
+
+        # f = open(downloaded_image,'wb')
+        # f.write(self.image_image_2)
+        # f.close()
         
     def download_data(self) :
-        print("Téléchargement des données... [EN COURS]")
+        console.print("Téléchargement des données... \n {A CONTINUER}", style="yellow")
 
     
   
@@ -718,5 +765,6 @@ class main(BaseDeDonnees, Generator):
 
 
 if __name__ == "__main__":
+    console.print("Démarrage de l'application...\n\n", style="bold blue")
     main()
     

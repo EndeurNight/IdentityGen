@@ -32,7 +32,7 @@ class BaseDeDonnees:
         #On récupère tous les métiers de la base de données
         if self.cursor == None:
             self.connectToDatabase()
-        self.cursor.execute('SELECT metier FROM identite WHERE metier != "NULL"')
+        self.cursor.execute('SELECT metier FROM identite WHERE metier != "NULL" AND metier NOT LIKE "%=%"')
         return self.cursor.fetchall()
 
     def getRandomJob(self):

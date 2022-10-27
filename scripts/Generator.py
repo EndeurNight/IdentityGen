@@ -73,6 +73,7 @@ class Generator :
         image = image.resize((150, 150))    
         image.save("./assets/identityImage.png")
 
+
     def security_number(self, sexe, annee_naissance, mois):
         """Pour l'instant, le numéro est généré de manière pseudo-aléatoire.
         Le modèle de génération est correct pour les 5 premiers chiffres mais est complété de manière aléatoire par Python, 

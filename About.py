@@ -34,6 +34,9 @@ class About:
         )
 
         canvas.place(x = 0, y = 0)
+
+
+        #Texte
         image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
         image_1 = canvas.create_image(
@@ -42,6 +45,7 @@ class About:
         image=image_image_1
         )
 
+        #Bannière de texte
         image_image_2 = PhotoImage(
         file=relative_to_assets("image_2.png"))
         image_2 = canvas.create_image(
@@ -50,6 +54,7 @@ class About:
         image=image_image_2
         )
 
+        #Logo IG
         image_image_3 = PhotoImage(
         file=relative_to_assets("image_3.png"))
         image_3 = canvas.create_image(
@@ -57,13 +62,15 @@ class About:
         150.0,
         image=image_image_3
         )
+
+        
         window.resizable(False, False)
         window.mainloop()
 
     def test(self):
         print("test")
 
-# if __name__ == "__main__":
-#     test = About()
-#     test.show_about_windows()
+if __name__ == "__main__":
+    test = About()
+    test.show_about_window()
 

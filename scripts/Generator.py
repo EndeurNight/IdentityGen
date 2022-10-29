@@ -4,7 +4,6 @@ import requests
 from datetime import date
 
 
-
 class Generator :
     
 
@@ -24,6 +23,10 @@ class Generator :
 
         #on génère le mois de naissance
         mois_naissance = randint(1, 12)
+
+        if mois_naissance < 10 :
+            temp = "0" + str(mois_naissance)
+            mois_naissance = int(temp)
 
         #on génère le jour de naissance
         if mois_naissance in [1, 3, 5, 7, 8, 10, 12] :
@@ -72,7 +75,6 @@ class Generator :
         image = image.convert("RGBA")
         image = image.resize((150, 150))    
         image.save("./assets/identityImage.png")
-
 
     def security_number(self, sexe, annee_naissance, mois):
         """Pour l'instant, le numéro est généré de manière pseudo-aléatoire.

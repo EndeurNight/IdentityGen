@@ -45,15 +45,13 @@ class main(BaseDeDonnees, Generator):
         #Couleur de fond
         self.root.configure(bg = "#1B2F47")
 
-        #MENU 
+        #Menus déroulants
         self.menu = tkinter.Menu(self.root)
         self.root.config(menu=self.menu)
-
         #about
         self.about = About()
         # self.about.test()
         # self.about.show_about_window()
-
         self.menuinfo = tkinter.Menu(self.menu, tearoff=0)
         self.menuinfo.add_command(label="Générer une nouvelle identité", command=self.reGen)
         self.menuinfo.add_command(label="Rafraichir l'image", command=self.refresh_image)
@@ -61,11 +59,7 @@ class main(BaseDeDonnees, Generator):
         self.menuinfo.add_separator()
         self.menuinfo.add_command(label="Quitter", command=self.root.quit)
         self.menu.add_cascade(label="Application", menu=self.menuinfo)
-
         self.menu.add_cascade(label="À propos", command=self.about.test)
-
-
-        
 
 
         #Dans l'ordre des composants de la fenêtre ig (on part du design, de haut en bas et de gauche à droite)):
@@ -86,6 +80,13 @@ class main(BaseDeDonnees, Generator):
         self.postal_code = tkinter.StringVar()
         #Age
         self.age = tkinter.StringVar()
+
+        '''Hors fenêtre'''
+        self.birth_date_year = tkinter.StringVar()
+        self.birth_date_month = tkinter.StringVar()
+        self.birth_date_day = tkinter.StringVar()
+        '''Fin hors fenêtre'''
+
         #Date de naissance
         self.birth_date = tkinter.StringVar()
         #Email
@@ -105,7 +106,6 @@ class main(BaseDeDonnees, Generator):
 
         #On initialise la base de données
         self.database = BaseDeDonnees('data/database.db')
-        
 
         #Initialisation du Canvas
         self.canvas = Canvas(
@@ -120,7 +120,9 @@ class main(BaseDeDonnees, Generator):
 
         self.canvas.place(x = 0, y = 0)
 
-       ####################First name####################
+#Tous les composants de la fenêtre sont placés ci-dessous
+
+####################First name####################
         entry_image_17 = PhotoImage(
             file=relative_to_assets("entry_17.png"))
         entry_bg_17 = self.canvas.create_image(
@@ -128,12 +130,13 @@ class main(BaseDeDonnees, Generator):
             148.5,
             image=entry_image_17
         )
-        self.firstname = Entry(
+        self.firstname_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.firstname
         )
-        self.firstname.place(
+        self.firstname_entry.place(
             x=93.99999237060547,
             y=140.0,
             width=160.99998474121094,
@@ -157,12 +160,13 @@ class main(BaseDeDonnees, Generator):
             146.5,
             image=entry_image_16
         )
-        self.name = Entry(
+        self.name_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.name
         )
-        self.name.place(
+        self.name_entry.place(
             x=358.2779846191406,
             y=138.0,
             width=182.72201538085938,
@@ -186,12 +190,13 @@ class main(BaseDeDonnees, Generator):
             180.5,
             image=entry_image_15
         )
-        self.job = Entry(
+        self.job_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.job
         )
-        self.job.place(
+        self.job_entry.place(
             x=84.0,
             y=172.0,
             width=171.0,
@@ -215,12 +220,13 @@ class main(BaseDeDonnees, Generator):
             180.5,
             image=entry_image_14
         )
-        self.sex = Entry(
+        self.sex_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.sex
         )
-        self.sex.place(
+        self.sex_entry.place(
             x=355.0,
             y=172.0,
             width=15.0,
@@ -244,12 +250,13 @@ class main(BaseDeDonnees, Generator):
             180.5,
             image=entry_image_13
         )
-        self.blood = Entry(
+        self.blood_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.blood
         )
-        self.blood.place(
+        self.blood_entry.place(
             x=517.0,
             y=172.0,
             width=24.0,
@@ -273,12 +280,13 @@ class main(BaseDeDonnees, Generator):
             208.5,
             image=entry_image_12
         )
-        self.city = Entry(
+        self.city_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.city
         )
-        self.city.place(
+        self.city_entry.place(
             x=78.44444274902344,
             y=200.0,
             width=176.55555725097656,
@@ -302,12 +310,13 @@ class main(BaseDeDonnees, Generator):
             208.5,
             image=entry_image_2
         )
-        self.postal_code = Entry(
+        self.postal_code_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.postal_code
         )
-        self.postal_code.place(
+        self.postal_code_entry.place(
             x=395.0,
             y=200.0,
             width=47.0,
@@ -331,12 +340,13 @@ class main(BaseDeDonnees, Generator):
             208.5,
             image=entry_image_8
         )
-        self.age = Entry(
+        self.age_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.age
         )
-        self.age.place(
+        self.age_entry.place(
             x=520.0,
             y=200.0,
             width=21.0,
@@ -360,12 +370,13 @@ class main(BaseDeDonnees, Generator):
             238.5,
             image=entry_image_3
         )
-        self.birth_date = Entry(
+        self.birth_date_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.birth_date
         )
-        self.birth_date.place(
+        self.birth_date_entry.place(
             x=152.0,
             y=230.0,
             width=103.0,
@@ -388,13 +399,14 @@ class main(BaseDeDonnees, Generator):
             238.5,
             image=entry_image_1
         )
-        self.email = Entry(
+        self.email_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.email
 
         )
-        self.email.place(
+        self.email_entry.place(
             x=357.0,
             y=230.0,
             width=184.0,
@@ -418,12 +430,13 @@ class main(BaseDeDonnees, Generator):
             268.5,
             image=entry_image_5
         )
-        self.social_security_number = Entry(
+        self.social_security_number_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.social_security_number
         )
-        self.social_security_number.place(
+        self.social_security_number_entry.place(
             x=194.0,
             y=260.0,
             width=347.0,
@@ -448,12 +461,13 @@ class main(BaseDeDonnees, Generator):
             301.5,
             image=entry_image_6
         )
-        self.phone_number = Entry(
+        self.phone_number_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.phone_number
         )
-        self.phone_number.place(
+        self.phone_number_entry.place(
             x=84.0,
             y=293.0,
             width=171.0,
@@ -477,12 +491,13 @@ class main(BaseDeDonnees, Generator):
             302.5,
             image=entry_image_11
         )
-        self.mobile_phone_number = Entry(
+        self.mobile_phone_number_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.mobile_phone_number
         )
-        self.mobile_phone_number.place(
+        self.mobile_phone_number_entry.place(
             x=356.0,
             y=294.0,
             width=186.0,
@@ -504,12 +519,13 @@ class main(BaseDeDonnees, Generator):
             333.5,
             image=entry_image_7
         )
-        self.bank_card_number = Entry(
+        self.bank_card_number_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.bank_card_number
         )
-        self.bank_card_number.place(
+        self.bank_card_number_entry.place(
             x=84.0,
             y=325.0,
             width=205.0,
@@ -532,12 +548,13 @@ class main(BaseDeDonnees, Generator):
             334.5,
             image=entry_image_4
         )
-        self.bank_card_expiration_date = Entry(
+        self.bank_card_expiration_date_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.bank_card_expiration_date
         )
-        self.bank_card_expiration_date.place(
+        self.bank_card_expiration_date_entry.place(
             x=358.0,
             y=326.0,
             width=84.0,
@@ -559,12 +576,13 @@ class main(BaseDeDonnees, Generator):
             333.5,
             image=entry_image_9
         )
-        self.bank_card_security_code = Entry(
+        self.bank_card_security_code_entry = Entry(
             bd=0,
             bg="#FFFFFF",
-            highlightthickness=0
+            highlightthickness=0,
+            textvariable=self.bank_card_security_code
         )
-        self.bank_card_security_code.place(
+        self.bank_card_security_code_entry.place(
             x=512.0,
             y=325.0,
             width=29.0,
@@ -706,12 +724,14 @@ class main(BaseDeDonnees, Generator):
         '''
 
 
-        #Boucle de l'application
+        #Boucle de fenêtre
         self.root.mainloop()
 
     ######################## Zone des fonctions ########################
 
     def changeImage(self):
+        '''Cette fonction permet de changer l'image du profil'''
+
         self.getImage()
         self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
         self.image_2 = self.canvas.create_image(
@@ -720,7 +740,9 @@ class main(BaseDeDonnees, Generator):
         image=self.image_image_2)
 
     def refresh_image(self):
-        console.print("Rafraichissement de l'image...", style="blue")
+        '''Cette fonction permet de raffraichir l'image du profil, en utilisant la fonction changeImage'''
+
+        console.print("Rafraichissement de l'image...", style="blue") #J'entends Bricard gueuler "pas de print dans une fonction" ralala
         try :
             self.changeImage()
             console.print("Image rafraichie !", style="green")
@@ -731,9 +753,14 @@ class main(BaseDeDonnees, Generator):
         
 
     def reGen(self):
-        console.print("\nGénération des données...", style="bold purple")
+        '''Cette fonction permet de générer une nouvelle fiche identité.
+        C'est la fonction principale du programme'''
 
-        #On génère l'image
+        console.print("\nGénération des données...\n\n", style="bold purple")
+
+        #Tous les composants de la fiche identité sont générés par différents moyens
+
+        ###Image de profil###
         console.print("Génération de l'image...", style="blue")
         try :
             self.changeImage()
@@ -742,26 +769,175 @@ class main(BaseDeDonnees, Generator):
             console.print("Erreur lors du rafraichissement de l'image", style="red")
             console.print(e, style="red")
 
-        #On génère le prénom
-        console.print("Génération du prénom...", style="blue")
+
+        ###First Name###
+
+        '''Début de la génération du prénom'''
+        temp = self.database.getRandomFirstName().split(";")
         try :
-            self.job = self.database.getRandomFirstName().split(";")[0]
-            console.print("Prénom : [u]" + str(self.job) + "[/u]", style="green") 
-            console.print("Prénom généré !", style="green")
+            self.firstname.set(str(temp[0]))
+            self.sex.set(str(temp[1]))
         except Exception as e:
             console.print("Erreur lors de la génération du prénom", style="red")
             console.print(e, style="red")
+        '''Fin de la génération du prénom'''
+
+        console.print("Génération du prénom...", style="blue")
+        try :
+            console.print("Prénom : [u]" + str(self.firstname.get()) + "[/u]", style="green") 
+        except Exception as e:
+            console.print("Erreur lors de la génération du prénom", style="red")
+            console.print(e, style="red")
+
         
-        #On génère le métier
+        ###Name###
+        console.print("Génération du nom...", style="blue")
+        #EN COURS
+        console.print("Fonction en cours de développement...", style="white")
+        
+
+        ###Job###
         console.print("Génération du métier...", style="blue")
         try :
-            console.print("Métier : [u]" + str(self.database.getRandomJob().split(";")[0]) + "[/u]", style="green")
-            console.print("Métier généré !", style="green")
+            self.job.set(str(self.database.getRandomJob().split(";")[0]))
+            console.print("Métier : [u]" + self.job.get() + "[/u]", style="green")
         except Exception as e:
             console.print("Erreur lors de la génération du métier", style="red")
             console.print(e, style="red")
 
-        console.print("Génération terminée.", style="bold green")
+        ###Sex###
+        console.print("Génération du sexe...", style="blue")
+        try :
+            console.print("Sexe : [u]" + self.sex.get() + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du sexe", style="red")
+            console.print(e, style="red")
+
+        ###Blood###
+        console.print("Génération du groupe sanguin...", style="blue")
+        try :
+            self.blood.set(self.groupe_sanguin())
+            console.print("Groupe sanguin : [u]" + self.blood.get() + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du groupe sanguin", style="red")
+            console.print(e, style="red")
+        
+
+        ###City###
+        console.print("Génération de la ville...", style="blue")
+        #EN COURS
+        console.print("Fonction en cours de développement...", style="white")
+
+        ###postal code###
+        console.print("Génération du code postal...", style="blue")
+        #EN COURS
+        console.print("Fonction en cours de développement...", style="white")
+
+        ###Age###
+        console.print("Génération de l'âge...", style="blue")
+
+        '''Début de la zone d'appel de la fonction naissance()'''
+        try :
+            temp = self.naissance()
+            self.birth_date_year.set(temp[2])
+            self.birth_date_month.set(temp[1])
+            self.birth_date_day.set(temp[0])
+            self.age.set(temp[3])
+
+        except Exception as e:
+            console.print("Erreur lors de la génération de l'âge", style="red")
+            console.print(e, style="red")
+
+        '''Fin de la zone d'appel de la fonction naissance()'''
+        
+        try :
+            console.print("Âge : [u]" + str(self.age.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération de l'âge", style="red")
+            console.print(e, style="red")
+        
+
+        ###Birth date###
+        console.print("Génération de la date de naissance...", style="blue")
+        try :
+            self.birth_date.set(str(self.birth_date_day.get()) + "/" + str(self.birth_date_month.get()) + "/" + str(self.birth_date_year.get()))
+            console.print("Date de naissance : [u]" + str(self.birth_date.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération de la date de naissance", style="red")
+            console.print(e, style="red")
+
+        
+        ###Email###
+        console.print("Génération de l'email...", style="blue")
+        #EN COURS
+        console.print("Fonction en cours de développement...", style="white")
+        
+
+        ###Social security number###
+        '''La fonction social_security_number() prend en paramètre : sexe, annee_naissance, mois'''
+        console.print("Génération du numéro de sécurité sociale...", style="blue")
+        try :
+            self.social_security_number.set((self.security_number((str(self.sex.get())), int(self.birth_date_year.get()), int(self.birth_date_month.get())))[1])
+            console.print("Numéro de sécurité sociale : [u]" + str(self.social_security_number.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du numéro de sécurité sociale", style="red")
+            console.print(e, style="red")
+        
+
+        ###Phone number###
+        console.print("Génération du numéro de téléphone...", style="blue")
+        try :
+            self.phone_number.set((self.num_phone("fixe"))[3])
+            console.print("Numéro de téléphone : [u]" + str(self.phone_number.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du numéro de téléphone", style="red")
+            console.print(e, style="red")
+        
+
+        ###Mobile phone number###
+        console.print("Génération du numéro de téléphone mobile...", style="blue")
+        try :
+            self.mobile_phone_number.set((self.num_phone("portable"))[3])
+            console.print("Numéro de téléphone mobile : [u]" + str(self.mobile_phone_number.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du numéro de téléphone mobile", style="red")
+            console.print(e, style="red")
+
+        ###Credit card number###
+        console.print("Génération de la carte bancaire...", style="blue")
+        
+        '''début de la zone d'appel de la fonction carte_bancaire()'''
+        try :
+            temp = self.carte_bancaire()
+            self.bank_card_number.set(temp[3])
+            self.bank_card_expiration_date.set(temp[2])
+            self.bank_card_security_code.set(temp[1])
+        except Exception as e:
+            console.print("Erreur lors de la génération du numéro de carte bancaire", style="red")
+            console.print(e, style="red")
+        '''fin de la zone d'appel de la fonction carte_bancaire()'''
+
+        try :
+            console.print("Numéro de carte bancaire : [u]" + str(self.bank_card_number.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du numéro de carte bancaire", style="red")
+            console.print(e, style="red")
+        
+        ###Credit card expiration date###
+        try :
+            console.print("Date d'expiration de la carte bancaire : [u]" + str(self.bank_card_expiration_date.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération de la date d'expiration de la carte bancaire", style="red")
+            console.print(e, style="red")
+        
+        ###Credit card security code###
+        try :
+            console.print("Code de sécurité de la carte bancaire : [u]" + str(self.bank_card_security_code.get()) + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du code de sécurité de la carte bancaire", style="red")
+            console.print(e, style="red")
+
+        console.print("\n\nGénération terminée.", style="bold green")
 
     def about(self):
         #on affiche la fenêtre à propos

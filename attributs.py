@@ -14,36 +14,59 @@ self.root.configure(bg = "#1B2F47")
 
 #Prénom
 self.firstname = tkinter.StringVar()
+
 #Nom
 self.name = tkinter.StringVar()
+
 #Métier
 self.job = tkinter.StringVar()
+
 #Sexe
 self.sex = tkinter.StringVar()
+
 #Groupe sanguin
 self.blood = tkinter.StringVar()
+def groupe_sanguin(self) :
+
 #Ville
 self.city = tkinter.StringVar()
+
 #Code postal
 self.postal_code = tkinter.StringVar()
+
 #Age
 self.age = tkinter.StringVar()
+def naissance(self) :
+
 #Date de naissance
 self.birth_date = tkinter.StringVar()
+def naissance(self) :
+
 #Email
 self.email = tkinter.StringVar()
+
 #Numéro de sécurité sociale
 self.social_security_number = tkinter.StringVar()
+
 #Numéro de téléphone fixe
 self.phone_number = tkinter.StringVar()
+def num_phone(self,mode)
+
 #Numéro de téléphone portable
 self.mobile_phone_number = tkinter.StringVar()
+def num_phone(self,mode)
+
 #Numéro de carte bancaire
 self.bank_card_number = tkinter.StringVar()
+def carte_bancaire(self)
+
 #Date d'expiration de la carte bancaire
 self.bank_card_expiration_date = tkinter.StringVar()
+def carte_bancaire(self)
+
 #Code de sécurité de la carte bancaire
 self.bank_card_security_code = tkinter.StringVar()
+def carte_bancaire(self)
 
 #On initialise la base de données
 self.database = BaseDeDonnees('data/database.db')

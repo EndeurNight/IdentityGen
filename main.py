@@ -1,16 +1,17 @@
+import tkinter
 from distutils import extension
 from distutils.log import error
-import tkinter
 from pathlib import Path
-from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk
+from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk, filedialog
 from tkinter.filedialog import asksaveasfile
+
+from PIL import Image
+from rich.console import Console
+
+from About import About
 from scripts.BaseDeDonnees import BaseDeDonnees
 from scripts.Convert import Convert
 from scripts.Generator import Generator
-from About import About
-from rich.console import Console
-from PIL import Image
-
 
 """figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
 
@@ -962,19 +963,26 @@ class main(BaseDeDonnees, Generator):
             console.print("Erreur lors de la conversion de l'image", style="red")
             console.print(e, style="red")
             return
-        console.print("Téléchargement de l'image... \n {A CONTINUER}", style="yellow")
-
-        # #on demande à l'utilisateur où il veut enregistrer l'image sur son ordinateur
-        # extensions = [('Image PNG ', '*.png')]
-        # #On demande à l'utilisateur où il veut enregistrer l'image identityImageExport.png
-        # downloaded_image = asksaveasfile(filetypes = extension, defaultextension = extension)
-
-        # f = open(downloaded_image,'wb')
-        # f.write(self.image_image_2)
-        # f.close()
+        console.print("Téléchargement de l'image...", style="blue")
+        try : 
+            #initialfilename = self.name.get() + " " + self.firstname.get() + "(IdentityGen).png"
+            initialfilename = self.firstname.get() + " (IdentityGen).png"
+            #initialfilename = "IdentityGen.png"
+            file = filedialog.asksaveasfilename(title = "Sauvegarder l'image de profil IdentityGen...", filetypes=[("PNG file", ".png")], defaultextension=".png", initialfile=initialfilename)
+            if file :
+                image_export = Image.open("./assets/identityImageExport.png")
+                image_export.save(file)
+            else :
+                console.print("Aucun fichier sélectionné. Opération annulée par l'utilisateur.", style="red")
+                return
+        except Exception as e:
+            console.print("Erreur lors du téléchargement de l'image", style="red")
+            console.print(e, style="red")
+            return
+        console.print("Image téléchargée avec succès...", style="green")
         
     def download_data(self) :
-        console.print("Téléchargement des données... \n {A CONTINUER}", style="yellow")
+        console.print("Téléchargement des données... \n {EN COURS DE DEVELOPPEMENT}", style="yellow")
 
     
   

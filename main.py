@@ -1,3 +1,4 @@
+import multiprocessing
 import tkinter
 from distutils import extension
 from distutils.log import error
@@ -733,12 +734,39 @@ class main(BaseDeDonnees, Generator):
     def changeImage(self):
         '''Cette fonction permet de changer l'image du profil'''
 
+        '''
+        try :
+            p = multiprocessing.Process(target=self.getImage())
+            p.start()
+            #On met un timeout de 5 secondes au cas où l'image ne se télécharge pas (problème de connexion par exemple)
+            p.join(1)
+            if p.is_alive():
+                console.print("Timout : l'image peine à s'actualiser. Merci de vérifier votre connexion.", style="red")
+                p.kill()
+                self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
+                self.image_2 = self.canvas.create_image(
+                717,
+                81,
+                image=self.image_image_2)
+                p.join()
+        except Exception as e:
+            console.print("Erreur lors du rafraichissement de l'image", style="red")
+            console.print(e, style="red")
+            return
+        self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
+        self.image_2 = self.canvas.create_image(
+        717,
+        81,
+        image=self.image_image_2)
+        '''
+
         self.getImage()
         self.image_image_2 = tkinter.PhotoImage(file=relative_to_assets("identityImage.png"))
         self.image_2 = self.canvas.create_image(
         717,
         81,
         image=self.image_image_2)
+        
 
     def refresh_image(self):
         '''Cette fonction permet de raffraichir l'image du profil, en utilisant la fonction changeImage'''
@@ -751,8 +779,7 @@ class main(BaseDeDonnees, Generator):
             console.print("Erreur lors du rafraichissement de l'image", style="red")
             console.print(e, style="red")
         return
-        
-
+    
     def reGen(self):
         '''Cette fonction permet de générer une nouvelle fiche identité.
         C'est la fonction principale du programme'''

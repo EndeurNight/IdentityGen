@@ -68,6 +68,10 @@ class Generator :
         return num, num_tirets, num_international, num_international_espaces
 
     def getImage(self):
+        return self.getImageProcess()
+        
+    def getImageProcess(self):
+        '''Fonction qui retourne une image aléatoire. J'ai du la séparer pour pouvoir utiliser les mesures de temps sur les threads'''
         f = open("./assets/identityImage.jfif",'wb')
         f.write(requests.get('https://thispersondoesnotexist.com/image', headers={'User-Agent': 'My User Agent 1.0'}).content)
         f.close()

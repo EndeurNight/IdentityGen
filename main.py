@@ -5,11 +5,13 @@ from distutils.log import error
 from pathlib import Path
 from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk, filedialog
 from tkinter.filedialog import asksaveasfile
+from datetime import datetime
+from time import strftime, sleep
 
 from PIL import Image
 from rich.console import Console
 
-from About import About
+from About import show_about_window
 from scripts.BaseDeDonnees import BaseDeDonnees
 from scripts.Convert import Convert
 from scripts.Generator import Generator
@@ -50,10 +52,6 @@ class main(BaseDeDonnees, Generator):
         #Menus déroulants
         self.menu = tkinter.Menu(self.root)
         self.root.config(menu=self.menu)
-        #about
-        self.about = About()
-        # self.about.test()
-        # self.about.show_about_window()
         self.menuinfo = tkinter.Menu(self.menu, tearoff=0)
         self.menuinfo.add_command(label="Générer une nouvelle identité", command=self.reGen)
         self.menuinfo.add_command(label="Rafraichir l'image", command=self.refresh_image)
@@ -61,7 +59,7 @@ class main(BaseDeDonnees, Generator):
         self.menuinfo.add_separator()
         self.menuinfo.add_command(label="Quitter", command=self.root.quit)
         self.menu.add_cascade(label="Application", menu=self.menuinfo)
-        self.menu.add_cascade(label="À propos", command=self.about.test)
+        self.menu.add_cascade(label="À propos", command=self.about_test)
 
 
         #Dans l'ordre des composants de la fenêtre ig (on part du design, de haut en bas et de gauche à droite)):
@@ -97,8 +95,12 @@ class main(BaseDeDonnees, Generator):
         self.social_security_number = tkinter.StringVar()
         #Numéro de téléphone fixe
         self.phone_number = tkinter.StringVar()
+        #Numéro de téléphone fixe sans espaces
+        self.phone_number_no_space = tkinter.StringVar()
         #Numéro de téléphone portable
         self.mobile_phone_number = tkinter.StringVar()
+        #Numéro de téléphone portable sans espaces
+        self.mobile_phone_number_no_space = tkinter.StringVar()
         #Numéro de carte bancaire
         self.bank_card_number = tkinter.StringVar()
         #Date d'expiration de la carte bancaire
@@ -122,7 +124,12 @@ class main(BaseDeDonnees, Generator):
 
         self.canvas.place(x = 0, y = 0)
 
+        #on génère une nouvelle identité dès le début ?
+        #self.reGen()
+
+
 #Tous les composants de la fenêtre sont placés ci-dessous
+
 
 ####################First name####################
         entry_image_17 = PhotoImage(
@@ -729,6 +736,7 @@ class main(BaseDeDonnees, Generator):
         #Boucle de fenêtre
         self.root.mainloop()
 
+
     ######################## Zone des fonctions ########################
 
     def changeImage(self):
@@ -766,7 +774,6 @@ class main(BaseDeDonnees, Generator):
         717,
         81,
         image=self.image_image_2)
-        
 
     def refresh_image(self):
         '''Cette fonction permet de raffraichir l'image du profil, en utilisant la fonction changeImage'''
@@ -821,7 +828,7 @@ class main(BaseDeDonnees, Generator):
         ###Name###
         console.print("Génération du nom...", style="blue")
         #EN COURS
-        console.print("Fonction en cours de développement...", style="white")
+        console.print("Fonction en cours de développement...", style="yellow")
         
 
         ###Job###
@@ -853,13 +860,24 @@ class main(BaseDeDonnees, Generator):
 
         ###City###
         console.print("Génération de la ville...", style="blue")
-        #EN COURS
-        console.print("Fonction en cours de développement...", style="white")
+        try :
+            '''Début de la génération de la ville + code postal'''
+            localisation = self.database.getRandomCitiesAndPostalCode()
+            self.city.set(localisation[0].title())
+            self.postal_code.set(localisation[1])
+            '''Fin de la génération de la ville + code postal'''
+            console.print("Ville : [u]" + self.city.get() + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération de la ville", style="red")
+            console.print(e, style="red")
 
         ###postal code###
         console.print("Génération du code postal...", style="blue")
-        #EN COURS
-        console.print("Fonction en cours de développement...", style="white")
+        try :
+            console.print("Code postal : [u]" + self.postal_code.get() + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération du code postal", style="red")
+            console.print(e, style="red")
 
         ###Age###
         console.print("Génération de l'âge...", style="blue")
@@ -897,8 +915,16 @@ class main(BaseDeDonnees, Generator):
         
         ###Email###
         console.print("Génération de l'email...", style="blue")
-        #EN COURS
-        console.print("Fonction en cours de développement...", style="white")
+        console.print("Fonction en cours de développement...", style="yellow")
+        '''
+        try :
+            self.email.set(str(self.email(self.firstname.get(), self.name.get())))
+            console.print("Email : [u]" + self.email + "[/u]", style="green")
+        except Exception as e:
+            console.print("Erreur lors de la génération de l'email", style="red")
+            console.print(e, style="red")
+        '''
+
         
 
         ###Social security number###
@@ -915,7 +941,9 @@ class main(BaseDeDonnees, Generator):
         ###Phone number###
         console.print("Génération du numéro de téléphone...", style="blue")
         try :
-            self.phone_number.set((self.num_phone("fixe"))[3])
+            num = self.num_phone("fixe")
+            self.phone_number.set(num[3])
+            self.phone_number_no_space.set(num[2])
             console.print("Numéro de téléphone : [u]" + str(self.phone_number.get()) + "[/u]", style="green")
         except Exception as e:
             console.print("Erreur lors de la génération du numéro de téléphone", style="red")
@@ -925,7 +953,9 @@ class main(BaseDeDonnees, Generator):
         ###Mobile phone number###
         console.print("Génération du numéro de téléphone mobile...", style="blue")
         try :
-            self.mobile_phone_number.set((self.num_phone("portable"))[3])
+            num = self.num_phone("portable")
+            self.mobile_phone_number.set(num[3])
+            self.mobile_phone_number_no_space.set(num[2])
             console.print("Numéro de téléphone mobile : [u]" + str(self.mobile_phone_number.get()) + "[/u]", style="green")
         except Exception as e:
             console.print("Erreur lors de la génération du numéro de téléphone mobile", style="red")
@@ -972,7 +1002,6 @@ class main(BaseDeDonnees, Generator):
         console.print("Ouverture de la fenêtre à propos...", style="blue")
         self.about()
 
-
     def convertToPdf(self):
         infos = {"prenom":self.firstname.get(), "job":self.job.get()}
         Convert("Identity_Gen_Card.pdf", infos).convert()
@@ -1010,13 +1039,61 @@ class main(BaseDeDonnees, Generator):
         
     def download_data(self) :
         console.print("Téléchargement des données... \n {EN COURS DE DEVELOPPEMENT}", style="yellow")
-
+        #On écrit un fichier txt qui contient toutes les données
+        #On demande à l'utilisateur où il veut le sauvegarder
+        #On écrit le fichier
+        #On affiche un message de succès
+        console.print("Préparation des données...", style="blue")
+        console.print("Préparation du fichier...", style="blue")
+        try : 
+            #initialfilename = self.name.get() + " " + self.firstname.get() + "(IdentityGen).png"
+            initialfilename = self.firstname.get() + " (IdentityGen).txt"
+            #initialfilename = "IdentityGen.png"
+            file = filedialog.asksaveasfilename(title = "Sauvegarder le profil IdentityGen...", filetypes=[("TXT file", ".txt")], defaultextension=".txt", initialfile=initialfilename)
+            if file :
+                console.print("Fichier sélectionné : [u]" + file + "[/u]", style="green")
+                #On écrit le fichier
+                console.print("Ecriture du fichier...", style="blue")
+                try :
+                    with open(file, "w") as f :
+                        f.write("#Fichier de profil IdentityGen\n")
+                        f.write("#Généré le " + strftime("%Y/%m/%d à %Hh%M") + "\n\n")
+                        f.write("Prénom : " + self.firstname.get() + "\n")
+                        f.write("Nom : " + self.name.get() + "\n")
+                        f.write("Sexe : " + self.sex.get() + "\n")
+                        f.write("Date de naissance : " + self.birth_date.get() + "\n")
+                        f.write("Âge : " + self.age.get() + "\n")
+                        f.write("Métier : " + self.job.get() + "\n")
+                        f.write("Groupe sanguin : " + self.blood.get() + "\n")
+                        f.write("Ville de résidence : " + self.city.get() + "\n")
+                        f.write("Code postal de la ville de résidence : " + self.postal_code.get() + "\n")
+                        f.write("Email : " + self.email.get() + "\n")
+                        f.write("Numéro de sécurité sociale : " + self.social_security_number.get() + "\n")
+                        f.write("Numéro de téléphone fixe : " + self.phone_number_no_space.get() + "\n")
+                        f.write("Numéro de téléphone portable : " + self.mobile_phone_number_no_space.get() + "\n")
+                        f.write("Numéro de carte bancaire : " + self.bank_card_number.get() + "\n")
+                        f.write("Date d'expiration de la carte bancaire : " + self.bank_card_expiration_date.get() + "\n")
+                        f.write("Code de sécurité de la carte bancaire : " + self.bank_card_security_code.get() + "\n")
+                        
+                except Exception as e:
+                    console.print("Erreur lors de l'écriture du fichier", style="red")
+                    console.print(e, style="red")
+                    return
+            else :
+                console.print("Aucun fichier sélectionné. Opération annulée par l'utilisateur.", style="red")
+                return
+        except Exception as e:
+            console.print("Erreur lors de l'écriture du fichier.", style="red")
+            console.print(e, style="red")
+            return
+        console.print("Fichier d'identité écrit avec succès...", style="green")
     
+    def about_test(self):
+        console.print("Ouverture de la fenêtre à propos...", style="blue")
+        console.print("En cours de développement...", style="yellow")
+
+        
   
-
-
-
-
 
 if __name__ == "__main__":
     console.print("Démarrage de l'application...\n\n", style="bold blue")

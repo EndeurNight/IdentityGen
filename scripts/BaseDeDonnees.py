@@ -39,10 +39,23 @@ class BaseDeDonnees:
         job = self.getJobs()
         return job[randint(0, len(job))][0].split("\n")[0]
     
+    def getCities(self) :
+        #On récupère toutes les villes de la base de données
+        if self.cursor == None:
+            self.connectToDatabase()
+        self.cursor.execute('SELECT ville_nom, ville_code_postal FROM Villes')
+        return self.cursor.fetchall()
+    def getRandomCitiesAndPostalCode(self):
+        #On récupère une ville et son code postal aléatoire
+        cities = self.getCities()
+        return cities[randint(0, len(cities))]
+    
 # test = BaseDeDonnees('data/database.db')
-# print(test.getRandomFirstName())
-# print(test.getRandomFirstName())
-
-
+# test = test.getRandomCitiesAndPostalCode()
+# print(test)
+# print(test[0])
+# print(test[1])
+# printe = test[0] + " " + test[1]
+# print(printe.lower())
 
 

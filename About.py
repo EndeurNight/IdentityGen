@@ -1,8 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-class About:
-    def show_about_window(self) :
+def show_about_window() :
         #Affiche la fenêtre "A propos"
         
         OUTPUT_PATH = Path(__file__).parent
@@ -67,10 +66,10 @@ class About:
         window.resizable(False, False)
         window.mainloop()
 
-    def test(self):
+def test():
         print("test")
 
 if __name__ == "__main__":
-    test = About()
-    test.show_about_window()
+    test()
+    show_about_window()
 

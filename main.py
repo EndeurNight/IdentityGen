@@ -3,7 +3,7 @@ import tkinter
 from distutils import extension
 from distutils.log import error
 from pathlib import Path
-from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk, filedialog
+from tkinter import *
 from tkinter.filedialog import asksaveasfile
 from datetime import datetime
 from time import strftime, sleep
@@ -11,7 +11,7 @@ from time import strftime, sleep
 from PIL import Image
 from rich.console import Console
 
-from About import show_about_window
+from About import About
 from scripts.BaseDeDonnees import BaseDeDonnees
 from scripts.Convert import Convert
 from scripts.Generator import Generator
@@ -20,7 +20,7 @@ from scripts.Generator import Generator
 
 """figd_tfu8hIrJnOs2JiudjbuqX9k9Bp-VrHANXEhb7uLM""" #second
 
-#Pas compris xD
+#Permet de définir un raccourci pour accèder au assets
 
 OUTPUT_PATH = Path(__file__).parent
 
@@ -59,7 +59,7 @@ class main(BaseDeDonnees, Generator):
         self.menuinfo.add_separator()
         self.menuinfo.add_command(label="Quitter", command=self.root.quit)
         self.menu.add_cascade(label="Application", menu=self.menuinfo)
-        self.menu.add_cascade(label="À propos", command=self.about_test)
+        self.menu.add_cascade(label="À propos", command=lambda : About().show_about_window(self.root))
 
 
         #Dans l'ordre des composants de la fenêtre ig (on part du design, de haut en bas et de gauche à droite)):
@@ -1091,6 +1091,10 @@ class main(BaseDeDonnees, Generator):
     def about_test(self):
         console.print("Ouverture de la fenêtre à propos...", style="blue")
         console.print("En cours de développement...", style="yellow")
+        sub_window = Toplevel(self.root)
+        Label(sub_window, text = "This is the other window").pack()
+
+
 
         
   

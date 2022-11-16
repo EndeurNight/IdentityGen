@@ -1,75 +1,74 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-
-def show_about_window() :
-        #Affiche la fenêtre "A propos"
-        
-        OUTPUT_PATH = Path(__file__).parent
-        ASSETS_PATH = OUTPUT_PATH / Path("./assets_about")
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Toplevel
 
 
-        def relative_to_assets(path: str) -> Path:
-            return ASSETS_PATH / Path(path)
+
+class About:
+        def __init__(self) -> None:
+                self.OUTPUT_PATH = Path(__file__).parent
+                self.ASSETS_PATH = self.OUTPUT_PATH / Path("./assets_about")
 
 
-        window = Tk()
 
-        window.geometry("445x445")
-        window.resizable(0, 0)
-        window.configure(bg = "#1B2F47")
-        window.title("À propos d'IdentityGen")
+        def relative_to_assets(self, path: str) -> Path:
+                return self.ASSETS_PATH / Path(path)
 
-        #Normalement, ça centre la fenêtre au milieu de l'écran
-        window.eval('tk::PlaceWindow . center')
+        def show_about_window(self, root) :
+                #Affiche la fenêtre "A propos"              
+                
 
-        canvas = Canvas(
-        window,
-        bg = "#1B2F47",
-        height = 445,
-        width = 445,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
-        )
+                self.window = Toplevel(root)
 
-        canvas.place(x = 0, y = 0)
+                self.window.geometry("445x445")
+                self.window.resizable(0, 0)
+                self.window.configure(bg = "#1B2F47")
+                self.window.title("À propos d'IdentityGen")
+
+                # #Normalement, ça centre la fenêtre au milieu de l'écran
+                # window.eval('tk::PlaceWindow . center')
+
+                self.canvas = Canvas(
+                self.window,
+                bg = "#1B2F47",
+                height = 445,
+                width = 445,
+                bd = 0,
+                highlightthickness = 0,
+                relief = "ridge"
+                )
+
+                self.canvas.place(x = 0, y = 0)
 
 
-        #Texte
-        image_image_1 = PhotoImage(
-        file=relative_to_assets("image_1.png"))
-        image_1 = canvas.create_image(
-        222.0,
-        372.0,
-        image=image_image_1
-        )
+                #Texte
+                image_image_1 = PhotoImage(
+                file=("./assets_about/image_1.png"), master=root)
 
-        #Bannière de texte
-        image_image_2 = PhotoImage(
-        file=relative_to_assets("image_2.png"))
-        image_2 = canvas.create_image(
-        219.0,
-        292.0,
-        image=image_image_2
-        )
+                image_1 = self.canvas.create_image(
+                222.0,
+                372.0,
+                image=image_image_1
+                )
 
-        #Logo IG
-        image_image_3 = PhotoImage(
-        file=relative_to_assets("image_3.png"))
-        image_3 = canvas.create_image(
-        227.0,
-        150.0,
-        image=image_image_3
-        )
+                #Bannière de texte
+                image_image_2 = PhotoImage(
+                file=("./assets_about/image_2.png"), master=root)
+                image_2 = self.canvas.create_image(
+                219.0,
+                292.0,
+                image=image_image_2
+                )
 
-        
-        window.resizable(False, False)
-        window.mainloop()
+                #Logo IG
+                image_image_3 = PhotoImage(
+                file=("./assets_about/image_3.png"), master=root)
+                image_3 = self.canvas.create_image(
+                227.0,
+                150.0,
+                image=image_image_3
+                )
 
-def test():
-        print("test")
+                self.window.mainloop()
 
-if __name__ == "__main__":
-    test()
-    show_about_window()
 
+                

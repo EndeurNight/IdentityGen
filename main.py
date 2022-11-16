@@ -3,7 +3,7 @@ import tkinter
 from distutils import extension
 from distutils.log import error
 from pathlib import Path
-from tkinter import *
+from tkinter import Button, Canvas, Entry, PhotoImage, Text, Tk, filedialog
 from tkinter.filedialog import asksaveasfile
 from datetime import datetime
 from time import strftime, sleep

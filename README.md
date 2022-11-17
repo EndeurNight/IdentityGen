@@ -3,7 +3,7 @@
 
 # IdentityGen
 
-IdentityGen est un utilitaire python qui, sur la base d'une interface graphique Tkinter, permet de générer des identités aléatoires grâce à des sélections aléatoires dans des base de données.
+IdentityGen est un utilitaire python qui, sur la base d'une interface graphique Tkinter, permet de générer des identités aléatoires françaises grâce à des sélections aléatoires dans des base de données et des calculs aléatoires.
  
 
 ## Démarrage et installation
@@ -14,7 +14,7 @@ D'abord, on clone le projet.
   git clone https://github.com/EndeurNight/IdentityGen.git
 ```
 
-Ensuite, on va jusqu'au projet.
+Comme on aime le risque, on se rend dans le dangereux dossier ```IdentityGen```
 
 ```bash
   cd IdentityGen
@@ -26,16 +26,10 @@ Puis, on fait appel au grand dieu pip pour installer toutes les joulies dépenda
   pip install -r requirements.txt
 ```
 
-Comme on aime le risque, on se rend dans le dangereux dossier ```main```
+Enfin, on lance ```main.py``` et on prie pour que ça fonctionne.
 
 ```bash
-  cd main
-```
-
-Enfin, on lance [fichier python] et on prie.
-
-```bash
-  python [fichier python]
+  python main.py
 ```
 ###
 ###

@@ -16,12 +16,7 @@ from scripts.BaseDeDonnees import BaseDeDonnees
 from scripts.Convert import Convert
 from scripts.Generator import Generator
 
-"""figd_x7RI6RIJEAKFF75aS00IaDkivLUrvAl61IidC_Lx""" #unique figma token
-
-"""figd_tfu8hIrJnOs2JiudjbuqX9k9Bp-VrHANXEhb7uLM""" #second
-
-#Permet de définir un raccourci pour accèder au assets
-
+#Permet de définir un raccourci pour accéder au assets
 OUTPUT_PATH = Path(__file__).parent
 
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
